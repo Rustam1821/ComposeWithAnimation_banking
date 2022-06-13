@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun AddNweCardBox() {
+fun AddNewCardBox() {
     val stroke = Stroke(
         width = 2f,
         pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f))
