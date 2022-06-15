@@ -14,8 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -63,6 +65,54 @@ fun CreditCard(
                 )
             }
 
+            CardNumberBlock(
+                modifier = Modifier
+                    .constrainAs(refCardNumber) {
+                        top.linkTo(icCardEntity.bottom, margin = 2.dp)
+                        start.linkTo(parent.start, margin = 8.dp)
+                    }
+                    .testTag("lCardNumber"),
+                cardNumber = cardNumber
+            )
+
+            Text(
+                modifier = Modifier
+                    .constrainAs(refName) {
+                        start.linkTo(parent.start, margin = cardPadding)
+                        bottom.linkTo(refHolderName.top)
+                    },
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_light)),
+                fontSize = 10.sp,
+                color = MaterialTheme.colors.onSurface,
+                text = "Name"
+            )
+
+
+
+            Text(
+                modifier = Modifier
+                    .constrainAs(refHolderName) {
+                        start.linkTo(parent.start, margin = cardPadding)
+                        bottom.linkTo(parent.bottom, margin = 30.dp)
+                    },
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+                fontSize = 12.sp,
+                color = MaterialTheme.colors.onSurface,
+                text = model.holderName.uppercase()
+            )
+
+            Text(
+                modifier = Modifier
+                    .constrainAs(refExpirationDate) {
+                        bottom.linkTo(refHolderName.bottom)
+                        end.linkTo(parent.end, margin = cardPadding)
+                    },
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_light)),
+                fontSize = 12.sp,
+                color = MaterialTheme.colors.onSurface,
+                text = model.formattedExpiration
+            )
+
         }
     }
 }
@@ -90,7 +140,7 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
     Text(
         modifier = modifier,
         fontWeight = FontWeight.Light,
-        fontFamily = FontFamily.Monospace,
+        fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_light)),
         fontSize = 25.sp,
         color = MaterialTheme.colors.onSurface,
         text = "${cardNumber.first} ${cardNumber.second} ${cardNumber.third} ${cardNumber.fourth}"

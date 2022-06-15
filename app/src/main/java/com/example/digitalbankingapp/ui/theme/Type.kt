@@ -8,7 +8,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
 
-//val JakartaFonts = FontFamily(
+//private val JakartaFonts = FontFamily(
 //    Font(R.font.plus_jakarta_sans_bold),
 //    Font(R.font.plus_jakarta_sans_bold_italic),
 //    Font(R.font.plus_jakarta_sans_extra_bold),
