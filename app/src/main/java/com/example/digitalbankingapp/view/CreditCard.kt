@@ -3,10 +3,12 @@ package com.example.digitalbankingapp.view
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -23,6 +25,7 @@ import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.utils.CardNumberSplitter
+import com.example.digitalbankingapp.utils.cardMeasuredHeight
 
 @Composable
 fun CreditCard(
@@ -35,13 +38,14 @@ fun CreditCard(
         ConstraintLayout {
             val (
                 refCardNumber,
+                refName,
                 refExpiration,
                 refExpirationDate,
                 refHolderName,
                 icCardEntity,
             ) = createRefs()
 
-            val cardNumber = CardNumberSplitter(number = model.number)
+            val cardNumber = CardNumberSplitter(number = model.encryptedCardNumber)
 
             val cardPadding = dimensionResource(id = R.dimen.credit_card_start_padding)
 
@@ -50,7 +54,7 @@ fun CreditCard(
                     modifier = Modifier
                         .constrainAs(icCardEntity) {
                             top.linkTo(parent.top, margin = cardPadding)
-                            start.linkTo(parent.start, margin = cardPadding)
+                            end.linkTo(parent.end, margin = cardPadding)
                         }
                         .width(60.dp),
                     painter = painterResource(id = issuer),
@@ -70,11 +74,15 @@ private fun CreditCardContainer(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(corner = CornerSize(5.dp)),
+            .fillMaxWidth()
+            .padding(5.dp)
+            .cardMeasuredHeight(),
+
+        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
         backgroundColor = backgroundColor,
-        content = content
-    )
+    ) {
+        content()
+    }
 }
 
 @Composable
@@ -84,11 +92,12 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
         fontWeight = FontWeight.Light,
         fontFamily = FontFamily.Monospace,
         fontSize = 25.sp,
-        color = Color.White,
-        text = "${cardNumber.first} ${cardNumber.second} ${cardNumber.third} ${cardNumber.fourth}")
+        color = MaterialTheme.colors.onSurface,
+        text = "${cardNumber.first} ${cardNumber.second} ${cardNumber.third} ${cardNumber.fourth}"
+    )
 }
 
-@Preview(name = "Credit card")
+@Preview(showBackground = true, name = "Credit card")
 @Composable
 fun CreditCardPreview() {
     Column(

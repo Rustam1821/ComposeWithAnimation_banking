@@ -19,5 +19,5 @@ data class CreditCardModel(
         "${expiration.substring(0, 2)}/${expiration.substring(2, expiration.length)}"
 
     val encryptedCardNumber =
-        "${number.substring(0, 5)} **** **** ${number.substring(13, number.length)}"
+        "${number.substring(0, 4)}********${number.substring(12, number.length)}"
 }
