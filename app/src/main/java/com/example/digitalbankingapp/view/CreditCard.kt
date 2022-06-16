@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
+import androidx.constraintlayout.compose.Dimension
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
@@ -188,41 +189,17 @@ fun TwoCards() {
         }
         Box(
             modifier = Modifier
-                .padding(start = 10.dp)
                 .constrainAs(bottomBalance) {
-//                    start.linkTo(upperCard.start)
+                    start.linkTo(upperCard.start, margin = 10.dp)
                     bottom.linkTo(parent.bottom)
+                    end.linkTo(lowerCard.end, margin = 10.dp)
+                    width = Dimension.fillToConstraints
                 }
+                .fillMaxWidth()
+                .offset(y = 25.dp)
 
         ) {
-            RoundedCornerShape(
-                topStart = 0.dp,
-                topEnd = 0.dp,
-                bottomEnd = 30.dp,
-                bottomStart = 30.dp
-
-            )
-            Canvas(
-                modifier = Modifier
-            ) {
-                val cornerRadius = CornerRadius(10f, 10f)
-                val path = Path().apply {
-                    addRoundRect(
-                        RoundRect(
-                            rect = Rect(
-                                offset = Offset(0f, 0f),
-                                size = Size(500f, 100f),
-                            ),
-                            bottomLeft = cornerRadius,
-                            bottomRight = cornerRadius,
-                        )
-                    )
-                }
-                drawPath(path = path, color = Color.Red)
-            }
-            Text(
-                text = "SomeText here"
-            )
+            Balance()
         }
     }
 }
@@ -230,12 +207,10 @@ fun TwoCards() {
 @Composable
 private fun Balance(
     backgroundColor: Color = Color.Black,
-    content: @Composable () -> Unit
 ) {
     Card(
         modifier = Modifier
-            .width(300.dp)
-            .padding(5.dp)
+            .fillMaxWidth()
             .height(60.dp),
 
         shape = RoundedCornerShape(
@@ -246,7 +221,12 @@ private fun Balance(
         ),
         backgroundColor = backgroundColor,
     ) {
-        content()
+        Text(
+            modifier = Modifier.padding(8.dp),
+            text = "lalalallala",
+            color = Color.White,
+
+        )
     }
 }
 
