@@ -1,6 +1,8 @@
 package com.example.digitalbankingapp.view
 
+import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -9,7 +11,9 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
@@ -17,6 +21,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -57,8 +62,7 @@ fun CreditCard(
                             top.linkTo(parent.top, margin = 8.dp)
                             end.linkTo(parent.end, margin = cardPadding)
                         }
-                        .size(50.dp)
-                        ,
+                        .size(50.dp),
                     painter = painterResource(id = issuer),
                     contentScale = ContentScale.Fit,
                     contentDescription = null
@@ -161,7 +165,7 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
 @Composable
 fun TwoCards() {
     ConstraintLayout {
-        val (upperCard, lowerCard) = createRefs()
+        val (upperCard, lowerCard, bottomBalance) = createRefs()
         Box(
             modifier = Modifier.constrainAs(lowerCard) {
                 start.linkTo(upperCard.start, margin = 42.dp)
@@ -182,6 +186,67 @@ fun TwoCards() {
                 backgroundColor = colorResource(id = R.color.aero_blue),
             )
         }
+        Box(
+            modifier = Modifier
+                .padding(start = 10.dp)
+                .constrainAs(bottomBalance) {
+//                    start.linkTo(upperCard.start)
+                    bottom.linkTo(parent.bottom)
+                }
+
+        ) {
+            RoundedCornerShape(
+                topStart = 0.dp,
+                topEnd = 0.dp,
+                bottomEnd = 30.dp,
+                bottomStart = 30.dp
+
+            )
+            Canvas(
+                modifier = Modifier
+            ) {
+                val cornerRadius = CornerRadius(10f, 10f)
+                val path = Path().apply {
+                    addRoundRect(
+                        RoundRect(
+                            rect = Rect(
+                                offset = Offset(0f, 0f),
+                                size = Size(500f, 100f),
+                            ),
+                            bottomLeft = cornerRadius,
+                            bottomRight = cornerRadius,
+                        )
+                    )
+                }
+                drawPath(path = path, color = Color.Red)
+            }
+            Text(
+                text = "SomeText here"
+            )
+        }
+    }
+}
+
+@Composable
+private fun Balance(
+    backgroundColor: Color = Color.Black,
+    content: @Composable () -> Unit
+) {
+    Card(
+        modifier = Modifier
+            .width(300.dp)
+            .padding(5.dp)
+            .height(60.dp),
+
+        shape = RoundedCornerShape(
+            topStart = 0.dp,
+            topEnd = 0.dp,
+            bottomEnd = 30.dp,
+            bottomStart = 30.dp
+        ),
+        backgroundColor = backgroundColor,
+    ) {
+        content()
     }
 }
 
