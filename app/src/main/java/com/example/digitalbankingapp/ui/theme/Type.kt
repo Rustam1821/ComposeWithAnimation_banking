@@ -4,26 +4,18 @@ import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
 
-//private val JakartaFonts = FontFamily(
-//    Font(R.font.plus_jakarta_sans_bold),
-//    Font(R.font.plus_jakarta_sans_bold_italic),
-//    Font(R.font.plus_jakarta_sans_extra_bold),
-//    Font(R.font.plus_jakarta_sans_extra_bold_italic),
-//    Font(R.font.plus_jakarta_sans_extra_light),
-//    Font(R.font.plus_jakarta_sans_extra_light_italic),
-//    Font(R.font.plus_jakarta_sans_italic),
-//    Font(R.font.plus_jakarta_sans_light),
-//    Font(R.font.plus_jakarta_sans_light_italic),
-//    Font(R.font.plus_jakarta_sans_medium),
-//    Font(R.font.plus_jakarta_sans_medium_italic),
-//    Font(R.font.plus_jakarta_sans_regular),
-//    Font(R.font.plus_jakarta_sans_semi_bold),
-//    Font(R.font.plus_jakarta_sans_semi_bold_italic),
-//)
+private val JakartaFonts = FontFamily(
+    Font(R.font.plus_jakarta_sans),
+    Font(R.font.plus_jakarta_sans_italic, style = FontStyle.Italic),
+    Font(R.font.plus_jakarta_sans_light, weight = FontWeight.Light),
+    Font(R.font.plus_jakarta_sans_bold, weight = FontWeight.Bold),
+
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(
@@ -31,6 +23,11 @@ val Typography = Typography(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,
         fontSize = 16.sp
+    ),
+
+    subtitle1 = TextStyle(
+        fontFamily = JakartaFonts,
+        fontSize = 12.sp
     )
 
     /* Other default text styles to override

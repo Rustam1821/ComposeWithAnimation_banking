@@ -7,7 +7,6 @@ data class CreditCardModel(
     var number: String = "",
     var expiration: String = "0000",
     var holderName: String = "",
-    var cardEntity: String = "VISA"
 ) {
     val logoCardIssuer = when (CardIssuerFinder.findCardIssuer(number)) {
         CardIssuer.VISA -> R.drawable.ic_visa_logo

@@ -13,57 +13,41 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.ui.theme.DigitalBankingAppTheme
 import com.example.digitalbankingapp.view.CreditCard
+import com.example.digitalbankingapp.view.TwoCards
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             DigitalBankingAppTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Scaffold(
-                        topBar = {
-                            MyAppBar()
-                        },
-                        content = {
-                            Row {
-                                AddNewCardBox()
-                                CreditCard(
-                                    model = CreditCardModel(
-                                        number = "4234567891234567",
-                                        expiration = "1227",
-                                        holderName = "John Smith",
-                                        cardEntity = "VISA"
-                                    ),
-                                    backgroundColor = colorResource(id = R.color.soap)
-                                )
-                            }
-
-                        }
-                    )
-                }
+                DigitalBanking()
             }
         }
+    }
+}
+
+@Composable
+private fun DigitalBanking(){
+    Surface(
+        modifier = Modifier.fillMaxSize(),
+        color = MaterialTheme.colors.background
+    ) {
+        Scaffold(
+            topBar = {
+                MyAppBar()
+            },
+            content = {
+                Row {
+                    AddNewCardBox()
+                    TwoCards()
+                }
+            }
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-
-    Row {
-        AddNewCardBox()
-        CreditCard(
-            model = CreditCardModel(
-                number = "4234567891234567",
-                expiration = "1227",
-                holderName = "John Smith",
-                cardEntity = "VISA"
-            ),
-            backgroundColor = colorResource(id = R.color.soap)
-        )
-    }
+    DigitalBanking()
 }

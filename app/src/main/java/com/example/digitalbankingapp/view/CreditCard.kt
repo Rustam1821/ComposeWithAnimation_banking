@@ -1,10 +1,7 @@
 package com.example.digitalbankingapp.view
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -14,17 +11,19 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.testTag
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.digitalbankingapp.R
+import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.utils.CardNumberSplitter
 import com.example.digitalbankingapp.utils.cardMeasuredHeight
@@ -55,10 +54,11 @@ fun CreditCard(
                 Image(
                     modifier = Modifier
                         .constrainAs(icCardEntity) {
-                            top.linkTo(parent.top, margin = cardPadding)
+                            top.linkTo(parent.top, margin = 8.dp)
                             end.linkTo(parent.end, margin = cardPadding)
                         }
-                        .width(60.dp),
+                        .size(50.dp)
+                        ,
                     painter = painterResource(id = issuer),
                     contentScale = ContentScale.Fit,
                     contentDescription = null
@@ -69,9 +69,9 @@ fun CreditCard(
                 modifier = Modifier
                     .constrainAs(refCardNumber) {
                         top.linkTo(icCardEntity.bottom, margin = 2.dp)
-                        start.linkTo(parent.start, margin = 8.dp)
-                    }
-                    .testTag("lCardNumber"),
+                        start.linkTo(parent.start, margin = cardPadding)
+                        end.linkTo(icCardEntity.end)
+                    },
                 cardNumber = cardNumber
             )
 
@@ -81,9 +81,9 @@ fun CreditCard(
                         start.linkTo(parent.start, margin = cardPadding)
                         bottom.linkTo(refHolderName.top)
                     },
-                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_light)),
-                fontSize = 10.sp,
-                color = MaterialTheme.colors.onSurface,
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
+                fontSize = 12.sp,
+                color = Color.Gray,
                 text = "Name"
             )
 
@@ -95,10 +95,21 @@ fun CreditCard(
                         start.linkTo(parent.start, margin = cardPadding)
                         bottom.linkTo(parent.bottom, margin = 30.dp)
                     },
-                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
-                fontSize = 12.sp,
+                style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onSurface,
                 text = model.holderName.uppercase()
+            )
+
+            Text(
+                modifier = Modifier
+                    .constrainAs(refExpiration) {
+                        start.linkTo(refExpirationDate.start)
+                        bottom.linkTo(refHolderName.top)
+                    },
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
+                fontSize = 12.sp,
+                color = Color.Gray,
+                text = "Exp"
             )
 
             Text(
@@ -107,8 +118,7 @@ fun CreditCard(
                         bottom.linkTo(refHolderName.bottom)
                         end.linkTo(parent.end, margin = cardPadding)
                     },
-                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_light)),
-                fontSize = 12.sp,
+                style = MaterialTheme.typography.subtitle1,
                 color = MaterialTheme.colors.onSurface,
                 text = model.formattedExpiration
             )
@@ -124,7 +134,7 @@ private fun CreditCardContainer(
 ) {
     Card(
         modifier = Modifier
-            .fillMaxWidth()
+            .width(300.dp)
             .padding(5.dp)
             .cardMeasuredHeight(),
 
@@ -139,28 +149,44 @@ private fun CreditCardContainer(
 fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
     Text(
         modifier = modifier,
-        fontWeight = FontWeight.Light,
-        fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_light)),
-        fontSize = 25.sp,
+        fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+        fontSize = 20.sp,
+        letterSpacing = 2.sp,
         color = MaterialTheme.colors.onSurface,
-        text = "${cardNumber.first} ${cardNumber.second} ${cardNumber.third} ${cardNumber.fourth}"
+        text = "${cardNumber.first}  ${cardNumber.second}  ${cardNumber.third}  ${cardNumber.fourth}"
     )
 }
 
-@Preview(showBackground = true, name = "Credit card")
+
+@Composable
+fun TwoCards() {
+    ConstraintLayout {
+        val (upperCard, lowerCard) = createRefs()
+        Box(
+            modifier = Modifier.constrainAs(lowerCard) {
+                start.linkTo(upperCard.start, margin = 42.dp)
+            }
+        ) {
+            CreditCard(
+                model = creditCardData()[1],
+                backgroundColor = colorResource(id = R.color.soap),
+            )
+        }
+        Box(
+            modifier = Modifier.constrainAs(upperCard) {
+                start.linkTo(parent.start)
+            }
+        ) {
+            CreditCard(
+                model = creditCardData()[0],
+                backgroundColor = colorResource(id = R.color.aero_blue),
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true, name = "Two Credit card")
 @Composable
 fun CreditCardPreview() {
-    Column(
-        modifier = Modifier.width(500.dp)
-    ) {
-        CreditCard(
-            model = CreditCardModel(
-                number = "4234567891234567",
-                expiration = "1227",
-                holderName = "John Smith",
-                cardEntity = "VISA"
-            ),
-            backgroundColor = Color.Yellow
-        )
-    }
+    TwoCards()
 }

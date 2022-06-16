@@ -20,7 +20,6 @@ class CardNumberSplitter(
     }
 
     private fun getBlock(blockNumber: Int): String {
-        val length = number.length
         val start = (blockNumber - 1) * BLOCK_SIZE
         val end = blockNumber * BLOCK_SIZE
         return number.substring(start, end)
