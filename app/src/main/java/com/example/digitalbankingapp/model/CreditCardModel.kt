@@ -9,7 +9,7 @@ data class CreditCardModel(
     var number: String = "",
     var expiration: String = "",
     var holderName: String = "",
-    var balance: Float = 0f,
+    var balance: Double = 0.0,
 ) {
     val logoCardIssuer = when (CardIssuerFinder.findCardIssuer(number)) {
         CardIssuer.VISA -> R.drawable.ic_visa_logo

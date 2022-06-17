@@ -257,7 +257,7 @@ fun CreditCardPreview() {
     TwoCards()
 }
 
-fun formattedBalance(balance: Float): String {
+fun formattedBalance(balance: Double): String {
     val dec = DecimalFormat("#,###.00")
     return dec.format(balance)
 }
