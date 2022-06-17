@@ -91,7 +91,7 @@ fun CreditCard(
                 modifier = Modifier
                     .constrainAs(refHolderName) {
                         start.linkTo(parent.start, margin = cardPadding)
-                        bottom.linkTo(parent.bottom, margin = 30.dp)
+                        bottom.linkTo(parent.bottom, margin = 16.dp)
                     },
                 style = MaterialTheme.typography.subtitle1,
                 color = Color.Black,
@@ -155,7 +155,7 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
         modifier = modifier,
         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
         fontSize = 20.sp,
-        letterSpacing = 2.sp,
+        letterSpacing = 1.sp,
         color = Color.Black,
         text = "${cardNumber.first}  ${cardNumber.second}  ${cardNumber.third}  ${cardNumber.fourth}"
     )
@@ -177,7 +177,7 @@ fun TwoCards() {
         Box(
             modifier = Modifier
                 .constrainAs(lowerCard) {
-                    start.linkTo(upperCard.start, margin = 42.dp)
+                    end.linkTo(parent.end)
                 }
         ) {
             CreditCard(
