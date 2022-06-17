@@ -14,8 +14,8 @@ fun Modifier.cardMeasuredHeight() = this.then(
                 constraints.copy(
                     minWidth = width,
                     maxWidth = width,
-                    minHeight = (width * 0.6306).toInt(),
-                    maxHeight = (width * 0.6306).toInt()
+                    minHeight = (width * 0.6).toInt(),
+                    maxHeight = (width * 0.6).toInt()
                 )
             )
         }

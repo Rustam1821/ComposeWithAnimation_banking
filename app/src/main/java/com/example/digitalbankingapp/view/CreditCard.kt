@@ -1,29 +1,22 @@
 package com.example.digitalbankingapp.view
 
-import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.geometry.*
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -33,6 +26,8 @@ import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.utils.CardNumberSplitter
 import com.example.digitalbankingapp.utils.cardMeasuredHeight
+import java.text.DecimalFormat
+import kotlin.math.abs
 
 @Composable
 fun CreditCard(
@@ -92,8 +87,6 @@ fun CreditCard(
                 text = "Name"
             )
 
-
-
             Text(
                 modifier = Modifier
                     .constrainAs(refHolderName) {
@@ -101,7 +94,7 @@ fun CreditCard(
                         bottom.linkTo(parent.bottom, margin = 30.dp)
                     },
                 style = MaterialTheme.typography.subtitle1,
-                color = MaterialTheme.colors.onSurface,
+                color = Color.Black,
                 text = model.holderName.uppercase()
             )
 
@@ -124,7 +117,7 @@ fun CreditCard(
                         end.linkTo(parent.end, margin = cardPadding)
                     },
                 style = MaterialTheme.typography.subtitle1,
-                color = MaterialTheme.colors.onSurface,
+                color = Color.Black,
                 text = model.formattedExpiration
             )
 
@@ -139,11 +132,17 @@ private fun CreditCardContainer(
 ) {
     Card(
         modifier = Modifier
-            .width(300.dp)
-            .padding(5.dp)
+            .width(280.dp)
+            .padding(
+                top = 8.dp,
+                end = 8.dp
+            )
             .cardMeasuredHeight(),
 
-        shape = RoundedCornerShape(corner = CornerSize(8.dp)),
+        shape = RoundedCornerShape(
+            topStart = 10.dp,
+            topEnd = 10.dp,
+        ),
         backgroundColor = backgroundColor,
     ) {
         content()
@@ -157,7 +156,7 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
         fontSize = 20.sp,
         letterSpacing = 2.sp,
-        color = MaterialTheme.colors.onSurface,
+        color = Color.Black,
         text = "${cardNumber.first}  ${cardNumber.second}  ${cardNumber.third}  ${cardNumber.fourth}"
     )
 }
@@ -165,68 +164,90 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
 
 @Composable
 fun TwoCards() {
-    ConstraintLayout {
+    var upperCardNumber by remember {
+        mutableStateOf(0)
+    }
+    ConstraintLayout(
+        Modifier.clickable {
+            upperCardNumber = abs(upperCardNumber - 1)
+        }.fillMaxWidth()
+    ) {
         val (upperCard, lowerCard, bottomBalance) = createRefs()
+        var lowerCardNumber = abs(upperCardNumber - 1)
         Box(
-            modifier = Modifier.constrainAs(lowerCard) {
-                start.linkTo(upperCard.start, margin = 42.dp)
-            }
+            modifier = Modifier
+                .constrainAs(lowerCard) {
+                    start.linkTo(upperCard.start, margin = 42.dp)
+                }
         ) {
             CreditCard(
-                model = creditCardData()[1],
-                backgroundColor = colorResource(id = R.color.soap),
+                model = creditCardData()[lowerCardNumber],
+                backgroundColor = fetchCardColor(lowerCardNumber),
             )
         }
         Box(
-            modifier = Modifier.constrainAs(upperCard) {
-                start.linkTo(parent.start)
-            }
+            modifier = Modifier
+                .constrainAs(upperCard) {
+                    start.linkTo(parent.start)
+                }
         ) {
             CreditCard(
-                model = creditCardData()[0],
-                backgroundColor = colorResource(id = R.color.aero_blue),
+                model = creditCardData()[upperCardNumber],
+                backgroundColor = fetchCardColor(upperCardNumber),
             )
         }
         Box(
             modifier = Modifier
                 .constrainAs(bottomBalance) {
-                    start.linkTo(upperCard.start, margin = 10.dp)
-                    bottom.linkTo(parent.bottom)
-                    end.linkTo(lowerCard.end, margin = 10.dp)
+                    start.linkTo(upperCard.start)
+                    top.linkTo(upperCard.bottom)
+                    end.linkTo(lowerCard.end, margin = 16.dp)
                     width = Dimension.fillToConstraints
                 }
                 .fillMaxWidth()
-                .offset(y = 25.dp)
 
         ) {
-            Balance()
+            val amount = creditCardData()[lowerCardNumber].balance
+            Balance(formattedBalance(amount))
         }
     }
 }
 
 @Composable
-private fun Balance(
-    backgroundColor: Color = Color.Black,
-) {
+private fun Balance(amount: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp),
+            .height(80.dp),
 
         shape = RoundedCornerShape(
-            topStart = 0.dp,
-            topEnd = 0.dp,
-            bottomEnd = 30.dp,
-            bottomStart = 30.dp
+            bottomEnd = 10.dp,
+            bottomStart = 10.dp
         ),
-        backgroundColor = backgroundColor,
+        backgroundColor = MaterialTheme.colors.onBackground,
     ) {
-        Text(
-            modifier = Modifier.padding(8.dp),
-            text = "lalalallala",
-            color = Color.White,
+        Column {
+            Text(
+                modifier = Modifier.padding(
+                    start = 16.dp,
+                    top = 16.dp,
+                ),
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
+                fontSize = 14.sp,
+                color = Color.Gray,
+                text = "Balance",
+            )
+            Text(
+                modifier = Modifier.padding(
+                    top = 2.dp,
+                    start = 16.dp,
+                ),
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+                text = "USD $amount",
+                color = MaterialTheme.colors.background,
+            )
 
-        )
+        }
     }
 }
 
@@ -234,4 +255,15 @@ private fun Balance(
 @Composable
 fun CreditCardPreview() {
     TwoCards()
+}
+
+fun formattedBalance(balance: Float): String {
+    val dec = DecimalFormat("#,###.00")
+    return dec.format(balance)
+}
+
+@Composable
+fun fetchCardColor(number: Int): Color {
+    val id = if (number == 0) R.color.aero_blue else R.color.soap
+    return colorResource(id)
 }

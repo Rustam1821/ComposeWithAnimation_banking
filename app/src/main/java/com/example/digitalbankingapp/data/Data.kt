@@ -8,11 +8,13 @@ fun creditCardData(): List<CreditCardModel>{
             number = "4234567894567894",
             expiration = "0526",
             holderName = "John Smith",
+            balance = 65265.32f,
         ),
         CreditCardModel(
             number = "5534567894564987",
             expiration = "1228",
-            holderName = "John Smith"
+            holderName = "John Smith",
+            balance = 65356462.32f,
         )
     )
 }

@@ -3,6 +3,7 @@ package com.example.digitalbankingapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
@@ -30,14 +31,18 @@ class MainActivity : ComponentActivity() {
 private fun DigitalBanking(){
     Surface(
         modifier = Modifier.fillMaxSize(),
-        color = MaterialTheme.colors.background
     ) {
         Scaffold(
+            backgroundColor = Color.White,
             topBar = {
                 MyAppBar()
             },
             content = {
-                Row {
+                Row (
+                    modifier = Modifier.background(
+                        color = MaterialTheme.colors.background
+                    )
+                        ) {
                     AddNewCardBox()
                     TwoCards()
                 }

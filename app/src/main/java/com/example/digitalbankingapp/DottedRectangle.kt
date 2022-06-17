@@ -29,9 +29,9 @@ fun AddNewCardBox() {
     val color = MaterialTheme.colors.onBackground
     Box(
         modifier = Modifier
-            .size(50.dp, 260.dp)
+            .size(60.dp, 260.dp)
             .padding(
-                10.dp
+                16.dp
             )
             .clickable { Log.e("--->", "Do you want to add new Card?") },
         contentAlignment = Alignment.Center
