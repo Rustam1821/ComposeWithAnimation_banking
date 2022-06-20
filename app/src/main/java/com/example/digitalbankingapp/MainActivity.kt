@@ -9,6 +9,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
@@ -29,7 +33,19 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-private fun DigitalBanking() {
+fun DigitalBanking() {
+    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
+    if (shouldShowOnboarding) {
+        OnBoardingScreen {
+            shouldShowOnboarding = false
+        }
+    } else {
+        MainScreen()
+    }
+}
+
+@Composable
+private fun MainScreen() {
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -86,5 +102,5 @@ private fun DigitalBanking() {
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    DigitalBanking()
+    MainScreen()
 }
