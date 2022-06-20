@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.digitalbankingapp.ui.theme.DigitalBankingAppTheme
 import com.example.digitalbankingapp.view.MyMenuItem
 import com.example.digitalbankingapp.view.TwoCards
@@ -46,6 +47,7 @@ fun DigitalBanking() {
 
 @Composable
 private fun MainScreen() {
+    val navController = rememberNavController()
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -54,6 +56,7 @@ private fun MainScreen() {
             topBar = {
                 MyAppBar()
             },
+            bottomBar = {BottomNavigationBar(navController)},
             content = {
                 Column {
 
@@ -93,7 +96,6 @@ private fun MainScreen() {
                         )
                     }
                 }
-
             }
         )
     }
