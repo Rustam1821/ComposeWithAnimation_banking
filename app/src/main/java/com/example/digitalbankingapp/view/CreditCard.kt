@@ -230,11 +230,11 @@ private fun Balance(amount: String) {
     ) {
         Column(
             modifier = Modifier.padding(start = 16.dp),
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Top
         ) {
             Text(
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
-                fontSize = 12.sp,
+                fontSize = 10.sp,
                 color = Color.Gray,
                 text = "Balance",
             )

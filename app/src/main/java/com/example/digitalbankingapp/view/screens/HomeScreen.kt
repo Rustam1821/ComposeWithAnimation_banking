@@ -44,5 +44,6 @@ fun HomeScreen() {
                 )
             }
         }
+        Transactions()
     }
 }
