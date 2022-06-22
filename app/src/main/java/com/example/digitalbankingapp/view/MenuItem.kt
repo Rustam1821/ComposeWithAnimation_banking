@@ -21,20 +21,19 @@ import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
 
 @Composable
-fun MyMenuItem(
+fun MenuItemButton(
     text: String = "text",
     iconId: Int = R.drawable.ic_menu_transfer,
 ) {
     val bgColor = MaterialTheme.colors.onBackground
-    val strokeColor =  MaterialTheme.colors.background
+    val strokeColor = MaterialTheme.colors.background
     Column(
         modifier = Modifier
-            .background(color = strokeColor)
-        ,
+            .background(color = strokeColor),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
 
-    ) {
+        ) {
         Box(modifier = Modifier.clip(RoundedCornerShape(16.dp))) {
             IconButton(
                 onClick = {},
@@ -63,9 +62,20 @@ fun MyMenuItem(
 
 }
 
+sealed class MenuItem(
+    var route: String = "",
+    var label: String,
+    var iconId: Int,
+) {
+    object Transfer : MenuItem(label = "Transfer", iconId = R.drawable.ic_menu_transfer)
+    object Payment : MenuItem(label = "Payment", iconId = R.drawable.ic_menu_payment)
+    object Shopping : MenuItem(label = "Shopping", iconId = R.drawable.ic_menu_shopping)
+    object More : MenuItem(label = "More", iconId = R.drawable.ic_menu_more)
+}
+
 
 @Preview(showBackground = true, name = "Menu item")
 @Composable
 fun MenuItemPreview() {
-    MyMenuItem()
+    MenuItemButton()
 }
