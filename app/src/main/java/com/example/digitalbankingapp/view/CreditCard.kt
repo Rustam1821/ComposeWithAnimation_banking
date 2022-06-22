@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
+import androidx.constraintlayout.compose.atMostWrapContent
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
@@ -58,7 +59,7 @@ fun CreditCard(
                             top.linkTo(parent.top, margin = 8.dp)
                             end.linkTo(parent.end, margin = cardPadding)
                         }
-                        .size(50.dp),
+                        .size(40.dp),
                     painter = painterResource(id = issuer),
                     contentScale = ContentScale.Fit,
                     contentDescription = null
@@ -68,10 +69,10 @@ fun CreditCard(
             CardNumberBlock(
                 modifier = Modifier
                     .constrainAs(refCardNumber) {
-                        top.linkTo(icCardEntity.bottom, margin = 2.dp)
-                        start.linkTo(parent.start, margin = cardPadding)
-                        end.linkTo(icCardEntity.end)
-                    },
+                        top.linkTo(icCardEntity.bottom, margin = 8.dp)
+                        start.linkTo(parent.start)
+                        end.linkTo(parent.end)
+                    }.padding(horizontal = cardPadding),
                 cardNumber = cardNumber
             )
 
@@ -101,7 +102,7 @@ fun CreditCard(
             Text(
                 modifier = Modifier
                     .constrainAs(refExpiration) {
-                        start.linkTo(refExpirationDate.start)
+                        end.linkTo(refExpirationDate.end)
                         bottom.linkTo(refHolderName.top)
                     },
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -132,7 +133,7 @@ private fun CreditCardContainer(
 ) {
     Card(
         modifier = Modifier
-            .width(280.dp)
+            .width(250.dp)
             .padding(
                 top = 8.dp,
                 end = 8.dp
@@ -152,10 +153,9 @@ private fun CreditCardContainer(
 @Composable
 fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
     Text(
-        modifier = modifier,
+        modifier = modifier.fillMaxWidth(),
         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
-        fontSize = 20.sp,
-        letterSpacing = 1.sp,
+        fontSize = 19.sp,
         color = Color.Black,
         text = "${cardNumber.first}  ${cardNumber.second}  ${cardNumber.third}  ${cardNumber.fourth}"
     )
@@ -168,9 +168,11 @@ fun TwoCards() {
         mutableStateOf(0)
     }
     ConstraintLayout(
-        Modifier.clickable {
-            upperCardNumber = abs(upperCardNumber - 1)
-        }.fillMaxWidth()
+        Modifier
+            .clickable {
+                upperCardNumber = abs(upperCardNumber - 1)
+            }
+            .fillMaxWidth()
     ) {
         val (upperCard, lowerCard, bottomBalance) = createRefs()
         var lowerCardNumber = abs(upperCardNumber - 1)
@@ -218,32 +220,28 @@ private fun Balance(amount: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp),
+            .height(40.dp),
 
         shape = RoundedCornerShape(
             bottomEnd = 10.dp,
-            bottomStart = 10.dp
+            bottomStart = 10.dp,
         ),
         backgroundColor = MaterialTheme.colors.onBackground,
     ) {
-        Column {
+        Column(
+            modifier = Modifier.padding(start = 16.dp),
+            verticalArrangement = Arrangement.Center
+        ) {
             Text(
-                modifier = Modifier.padding(
-                    start = 16.dp,
-                    top = 16.dp,
-                ),
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
-                fontSize = 14.sp,
+                fontSize = 12.sp,
                 color = Color.Gray,
                 text = "Balance",
             )
             Text(
-                modifier = Modifier.padding(
-                    top = 2.dp,
-                    start = 16.dp,
-                ),
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
                 text = "USD $amount",
+                fontSize = 12.sp,
                 color = MaterialTheme.colors.background,
             )
 

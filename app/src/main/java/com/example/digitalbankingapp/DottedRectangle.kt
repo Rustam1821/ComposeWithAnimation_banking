@@ -29,7 +29,7 @@ fun AddNewCardBox() {
     val color = MaterialTheme.colors.onBackground
     Box(
         modifier = Modifier
-            .size(60.dp, 270.dp)
+            .size(60.dp, 228.dp)
             .padding(
                 16.dp
             )
