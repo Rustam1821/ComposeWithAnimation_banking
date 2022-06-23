@@ -37,6 +37,7 @@ private val LightColorPalette = lightColors(
 @Composable
 fun DigitalBankingAppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
+//    fontFamily: FontFamily = JakartaFonts,
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
@@ -44,6 +45,8 @@ fun DigitalBankingAppTheme(
     } else {
         LightColorPalette
     }
+
+//    val typography = getTypography(fontFamily)
 
     MaterialTheme(
         colors = colors,

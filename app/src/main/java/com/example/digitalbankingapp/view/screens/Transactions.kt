@@ -3,6 +3,7 @@ package com.example.digitalbankingapp.view.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -10,9 +11,9 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.res.fontResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -20,6 +21,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
+import com.example.digitalbankingapp.data.transactionsData
+import com.example.digitalbankingapp.model.TransactionModel
+import com.example.digitalbankingapp.ui.theme.DarkGray
 import com.example.digitalbankingapp.ui.theme.Gray90
 import com.example.digitalbankingapp.ui.theme.Gray98
 
@@ -65,7 +69,7 @@ fun TransactionsHeader() {
 
 @Composable
 fun TransactionItems(
-    transactions: List<String> = List(1000) { "$it" }
+    transactions: List<TransactionModel> = transactionsData()
 ) {
     LazyColumn(
         modifier = Modifier
@@ -78,10 +82,12 @@ fun TransactionItems(
 }
 
 @Composable
-fun TransactionItem(transaction: String) {
+fun TransactionItem(transaction: TransactionModel) {
     Card(
         backgroundColor = Gray98,
-        modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+        modifier = Modifier
+            .padding(vertical = 4.dp, horizontal = 16.dp)
+            .clip(RoundedCornerShape(16.dp)),
         elevation = 0.dp
     ) {
         Row(
@@ -91,9 +97,7 @@ fun TransactionItem(transaction: String) {
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
 
-        ) {
-            val textColor = Color.Black
-            val fontFamily = FontFamily(Font(R.font.plus_jakarta_sans))
+            ) {
             Icon(
                 modifier = Modifier
                     .size(40.dp)
@@ -103,8 +107,9 @@ fun TransactionItem(transaction: String) {
                             radius = this.size.maxDimension * 0.5f
                         )
                     },
-                painter = painterResource(id = R.drawable.ic_transactions_dribbble),
-                contentDescription = ""
+                painter = painterResource(id = transaction.iconId),
+                tint = Color.Black,
+                contentDescription = null
             )
             Column(
                 modifier = Modifier
@@ -112,11 +117,26 @@ fun TransactionItem(transaction: String) {
                     .padding(start = 8.dp)
             ) {
                 Text(
-                    text = "Subscription",
-                    color = Color.Black)
-                Text(text = "today at 4:30 pm", color = Color.Black)
+                    text = transaction.description,
+                    color = Color.Black,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+                    fontSize = 14.sp,
+                )
+                Text(
+                    text = transaction.date,
+                    color = DarkGray,
+                    fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
+                    fontSize = 12.sp
+                )
             }
-            Text(text = "-64 $", color = textColor)
+            Text(
+                text = transaction.formattedPrice,
+                color = Color.Black,
+                fontWeight = FontWeight.ExtraBold,
+                fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+                fontSize = 16.sp
+            )
         }
 
     }
