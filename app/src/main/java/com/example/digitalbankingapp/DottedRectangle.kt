@@ -1,6 +1,5 @@
 package com.example.digitalbankingapp
 
-import android.content.res.Resources
 import android.util.Log
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.clickable
@@ -14,7 +13,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.CornerRadius
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.style.TextAlign
@@ -23,7 +21,7 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun AddNweCardBox() {
+fun AddNewCardBox() {
     val stroke = Stroke(
         width = 2f,
         pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f))
@@ -31,9 +29,9 @@ fun AddNweCardBox() {
     val color = MaterialTheme.colors.onBackground
     Box(
         modifier = Modifier
-            .size(50.dp, 260.dp)
+            .size(60.dp, 228.dp)
             .padding(
-                10.dp
+                16.dp
             )
             .clickable { Log.e("--->", "Do you want to add new Card?") },
         contentAlignment = Alignment.Center

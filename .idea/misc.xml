@@ -12,8 +12,59 @@
         <entry key="../../../../layout/compose-model-1655116072431.xml" value="0.9" />
         <entry key="../../../../layout/compose-model-1655116899163.xml" value="0.75" />
         <entry key="../../../../layout/compose-model-1655127276861.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1655140397808.xml" value="0.7806191117092867" />
+        <entry key="../../../../layout/compose-model-1655285394562.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1655286561116.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1655290211640.xml" value="0.5" />
+        <entry key="../../../../layout/compose-model-1655295851233.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1655296166968.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1655299117016.xml" value="0.24444444444444444" />
+        <entry key="../../../../layout/compose-model-1655300394515.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1655300447474.xml" value="0.24444444444444444" />
+        <entry key="../../../../layout/compose-model-1655300807883.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1655301059986.xml" value="0.9" />
+        <entry key="../../../../layout/compose-model-1655303563982.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1655377272249.xml" value="0.5175925925925926" />
+        <entry key="../../../../layout/compose-model-1655378246390.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1655378415288.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1655382020383.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1655382597620.xml" value="0.594048884165781" />
+        <entry key="../../../../layout/compose-model-1655384899032.xml" value="0.40107671601615075" />
+        <entry key="../../../../layout/compose-model-1655386092632.xml" value="0.33" />
+        <entry key="../../../../layout/compose-model-1655387691880.xml" value="0.5175925925925926" />
+        <entry key="../../../../layout/compose-model-1655465091732.xml" value="0.4361111111111111" />
+        <entry key="../../../../layout/compose-model-1655474688059.xml" value="0.15878378378378377" />
+        <entry key="../../../../layout/compose-model-1655475273600.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1655475298258.xml" value="1.1893939393939394" />
+        <entry key="../../../../layout/compose-model-1655479679611.xml" value="2.0" />
+        <entry key="../../../../layout/compose-model-1655479873805.xml" value="0.2563344594594595" />
+        <entry key="../../../../layout/compose-model-1655480963099.xml" value="0.67" />
+        <entry key="../../../../layout/compose-model-1655482460039.xml" value="0.25" />
+        <entry key="../../../../layout/compose-model-1655482608141.xml" value="0.24493243243243243" />
+        <entry key="../../../../layout/compose-model-1655490834638.xml" value="0.19537037037037036" />
+        <entry key="../../../../layout/compose-model-1655716467564.xml" value="0.7092198581560284" />
+        <entry key="../../../../layout/compose-model-1655724590709.xml" value="0.2751031636863824" />
+        <entry key="../../../../layout/compose-model-1655724591604.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1655733266111.xml" value="0.1" />
+        <entry key="../../../../layout/compose-model-1655898094713.xml" value="1.429078014184397" />
+        <entry key="../../../../layout/compose-model-1655899608595.xml" value="1.0" />
+        <entry key="../../../../layout/compose-model-1655900823525.xml" value="1.429078014184397" />
+        <entry key="../../../../layout/compose-model-1655908047322.xml" value="0.15878378378378377" />
+        <entry key="../../../../layout/compose-model-1655908057071.xml" value="0.4876783398184176" />
+        <entry key="../../../../layout/compose-model-1655908486869.xml" value="0.2796296296296296" />
+        <entry key="app/src/main/res/drawable-v24/baseline_payments_24.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable-v24/ic_botbar_home.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1765" />
+        <entry key="app/src/main/res/drawable-v24/ic_menu_payment.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable-v24/ic_menu_payment0000.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable-v24/outline_live_help_24.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable-v24/outline_person_outline_24.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable-v24/transaction_history_wh.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1765" />
+        <entry key="app/src/main/res/drawable/ic_mastercard_logo.xml" value="0.1765" />
+        <entry key="app/src/main/res/drawable/ic_menu_more2.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable/ic_shopping_logo_icon2_144755.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable/ic_visa_logo.xml" value="0.1765" />
         <entry key="app/src/main/res/drawable/ic_visa_logo_icon_144755.xml" value="0.1765" />
         <entry key="app/src/main/res/drawable/ic_visa_logo_icon_206646.xml" value="0.1765" />
         <entry key="app/src/main/res/drawable/ic_visa_svgrepo_com.xml" value="0.19" />

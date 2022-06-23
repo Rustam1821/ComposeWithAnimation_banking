@@ -8,4 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark">#FF2F2F2F</color>
+    <color name="aero_blue">#FFD3FFE0</color>
+    <color name="soap">#FFD5C0F0</color>
+
 </resources>

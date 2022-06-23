@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="credit_card_start_padding">16dp</dimen>
+
+</resources>
