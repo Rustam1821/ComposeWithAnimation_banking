@@ -7,8 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.digitalbankingapp.AddNewCardBox
-import com.example.digitalbankingapp.view.MenuItemButton
 import com.example.digitalbankingapp.view.MenuItem
+import com.example.digitalbankingapp.view.MenuItemButton
 import com.example.digitalbankingapp.view.TwoCards
 
 @Composable
@@ -19,20 +19,17 @@ fun HomeScreen() {
         MenuItem.Shopping,
         MenuItem.More
     )
-    Column {
+    Column(
+        modifier = Modifier.background(MaterialTheme.colors.background)
+    ) {
 
-        Row(
-            modifier = Modifier.background(
-                color = MaterialTheme.colors.background
-            )
-        ) {
+        Row {
             AddNewCardBox()
             TwoCards()
         }
 
         Row(
             modifier = Modifier
-                .background(MaterialTheme.colors.background)
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween
