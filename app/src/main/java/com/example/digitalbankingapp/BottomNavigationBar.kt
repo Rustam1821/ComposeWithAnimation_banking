@@ -1,11 +1,14 @@
 package com.example.digitalbankingapp
 
-import androidx.compose.material.*
+import androidx.compose.material.BottomNavigation
+import androidx.compose.material.BottomNavigationItem
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -33,20 +36,21 @@ fun BottomNavigationBar(
         elevation = 10.dp
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = navBackStackEntry?.destination?.route
+        val currentDestination = navBackStackEntry?.destination
 
         items.forEach { item ->
+            val selected = currentDestination?.hierarchy?.any { it.route == item.route } ?: false
             BottomNavigationItem(
                 icon = {
                     Icon(
-                        painter = painterResource(id = item.icon),
+                        imageVector = if (selected) item.icon_filled else item.icon_outlined,
                         contentDescription = null
                     )
                 },
                 selectedContentColor = MaterialTheme.colors.onBackground,
                 unselectedContentColor = MaterialTheme.colors.onBackground.copy(alpha = 0.5f),
                 alwaysShowLabel = true,
-                selected = currentRoute == item.route,
+                selected = currentDestination?.route == item.route,
                 onClick = {
                     navController.navigate(route = item.route) {
                         navController.graph.startDestinationRoute?.let { route ->
@@ -68,16 +72,16 @@ fun Navigation(
     navController: NavHostController
 ) {
     NavHost(navController = navController, startDestination = NavigationItem.Home.route) {
-        composable(NavigationItem.Home.route){
+        composable(NavigationItem.Home.route) {
             HomeScreen()
         }
-        composable(NavigationItem.Transactions.route){
+        composable(NavigationItem.Transactions.route) {
             TransactionsScreen()
         }
-        composable(NavigationItem.Question.route){
+        composable(NavigationItem.Question.route) {
             QuestionScreen()
         }
-        composable(NavigationItem.Profile.route){
+        composable(NavigationItem.Profile.route) {
             ProfileScreen()
         }
     }
