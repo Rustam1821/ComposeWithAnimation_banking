@@ -47,7 +47,6 @@ private fun MainScreen() {
         modifier = Modifier.fillMaxSize(),
     ) {
         Scaffold(
-            backgroundColor = Color.White,
             topBar = {
                 MyAppBar()
             },

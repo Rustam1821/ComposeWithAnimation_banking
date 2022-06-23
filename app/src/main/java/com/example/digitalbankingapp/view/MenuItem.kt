@@ -28,8 +28,6 @@ fun MenuItemButton(
     val bgColor = MaterialTheme.colors.onBackground
     val strokeColor = MaterialTheme.colors.background
     Column(
-        modifier = Modifier
-            .background(color = strokeColor),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
 
