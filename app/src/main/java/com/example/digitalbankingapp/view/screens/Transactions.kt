@@ -23,9 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.transactionsData
 import com.example.digitalbankingapp.model.TransactionModel
-import com.example.digitalbankingapp.ui.theme.DarkGray
-import com.example.digitalbankingapp.ui.theme.Gray90
-import com.example.digitalbankingapp.ui.theme.Gray98
+import com.example.digitalbankingapp.ui.theme.*
 
 @Composable
 fun Transactions(

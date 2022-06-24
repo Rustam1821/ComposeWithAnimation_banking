@@ -45,21 +45,11 @@ fun DigitalBanking() {
 @Composable
 private fun MainScreen() {
     val navController = rememberNavController()
-    var shouldShowBottomBar by rememberSaveable { mutableStateOf(true) }
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-
-    shouldShowBottomBar = when (navBackStackEntry?.destination?.route) {
-        NavigationItem.Transactions.route -> false
-        else -> true
-    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
         Scaffold(
-            topBar = {
-                if (shouldShowBottomBar) MyAppBar()
-            },
             bottomBar = { BottomNavigationBar(navController) },
             content = { innerPadding ->
                 Box(modifier = Modifier.padding(innerPadding)) {
