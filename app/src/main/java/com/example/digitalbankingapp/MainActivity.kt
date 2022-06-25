@@ -15,6 +15,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.digitalbankingapp.ui.theme.DigitalBankingAppTheme
 
@@ -44,13 +45,11 @@ fun DigitalBanking() {
 @Composable
 private fun MainScreen() {
     val navController = rememberNavController()
+
     Surface(
         modifier = Modifier.fillMaxSize(),
     ) {
         Scaffold(
-            topBar = {
-                MyAppBar()
-            },
             bottomBar = { BottomNavigationBar(navController) },
             content = { innerPadding ->
                 Box(modifier = Modifier.padding(innerPadding)) {

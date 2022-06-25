@@ -76,7 +76,7 @@ fun Navigation(
             HomeScreen()
         }
         composable(NavigationItem.Transactions.route) {
-            TransactionsScreen()
+            TransactionsScreen(navController)
         }
         composable(NavigationItem.Question.route) {
             QuestionScreen()

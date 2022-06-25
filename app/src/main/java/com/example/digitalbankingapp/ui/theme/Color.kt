@@ -9,3 +9,6 @@ val Teal200 = Color(0xFF03DAC5)
 val Gray98 = Color(0xFFFAFAFA)
 val Gray90 = Color(0xFFE5E5E5)
 val DarkGray = Color(0xFF757575)
+
+val ArcCommerceColor = Color(0xFFFAF9B8)
+val ArcPaymentColor = Color(0xFFD2BEEE)
