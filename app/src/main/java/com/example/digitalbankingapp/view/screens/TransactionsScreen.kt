@@ -1,13 +1,16 @@
 package com.example.digitalbankingapp.view.screens
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,15 +27,26 @@ fun TransactionsScreen(
     Scaffold(
         topBar = { TransactionsAppBar(navController) }
     ) {
-        Box(modifier = Modifier.padding(16.dp)) {
+        Column {
 
-            TransactionsArc(
-                percentage = 0.8f,
-            )
-            Column(modifier = Modifier.align(Alignment.TopCenter)) {
-                Text(text = "Balance")
-                Text(text = "15 000 usd")
+
+            Box(modifier = Modifier.padding(16.dp)) {
+
+                TransactionsArc(
+                    percentage = 0.8f,
+                )
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .offset(y = (-30).dp)
+                ) {
+                    Text(text = "Balance", Modifier.align(Alignment.CenterHorizontally))
+                    Text(text = "15 000 usd")
+                    Spacer(modifier = Modifier.height(30.dp))
+                    Text(text = "Legend here")
+                }
             }
+            Text(text = "15 000 usd")
         }
     }
 }
@@ -79,6 +93,23 @@ fun TransactionsArc(
         )
 
     }
+}
+
+@Composable
+fun DisplayLegend(color: Color, legend: String) {
+    Row(
+        horizontalArrangement = Arrangement.Center,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(
+            modifier = Modifier
+                .size(10.dp)
+                .background(color = color, shape = CircleShape)
+        )
+        Spacer(modifier = Modifier.width(4.dp))
+        Text(text = legend)
+    }
+
 }
 
 @Preview
