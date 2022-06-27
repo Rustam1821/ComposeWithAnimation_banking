@@ -1,13 +1,15 @@
 package com.example.digitalbankingapp.view.screens
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
-import androidx.compose.material.Text
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -24,6 +26,7 @@ import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.TransactionsAppBar
 import com.example.digitalbankingapp.data.balanceData
 import com.example.digitalbankingapp.model.BalanceModel
+import com.example.digitalbankingapp.model.PeriodCategory
 import com.example.digitalbankingapp.ui.theme.DarkGray
 import com.example.digitalbankingapp.view.formattedBalance
 
@@ -42,6 +45,7 @@ fun TransactionsScreen(
             DisplayBalance(formattedBalance(data.sumOf { it.balance }))
             Spacer(modifier = Modifier.height(48.dp))
             DisplayLegend(data)
+            PeriodCategoryTabs(onPeriodSelected = {})
         }
     }
 }
@@ -142,6 +146,63 @@ fun DisplayLegendItem(color: Color, legend: String) {
         Text(text = legend)
     }
 
+}
+
+@Composable
+private fun PeriodCategoryTabs(
+    onPeriodSelected: (PeriodCategory) -> Unit,
+    modifier: Modifier = Modifier
+) {
+    val periodCategories = PeriodCategory.values()
+    var selectedTab = remember { mutableStateOf(0) }
+    ScrollableTabRow(
+        selectedTabIndex = selectedTab.value,
+        edgePadding = 16.dp,
+        modifier = modifier,
+        divider = {},
+        indicator = {},
+        backgroundColor = MaterialTheme.colors.background,
+    ) {
+        periodCategories.forEachIndexed { index, periodItem ->
+            Tab(
+                selected = selectedTab.value == index,
+                onClick = {
+                    selectedTab.value = index
+                    onPeriodSelected
+                }
+            ) {
+                ChoicePeriodChip(
+                    text = periodItem.value,
+                    isSelected = index == selectedTab.value,
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                )
+            }
+        }
+    }
+}
+
+@Composable
+private fun ChoicePeriodChip(
+    text: String,
+    isSelected: Boolean,
+    modifier: Modifier = Modifier
+) {
+    Surface(
+        color = if (isSelected) MaterialTheme.colors.onBackground else MaterialTheme.colors.background,
+        shape = RoundedCornerShape(8.dp),
+        border = BorderStroke(width = 1.dp, color = DarkGray),
+        modifier = modifier
+    ) {
+        Text(
+            text = text,
+            fontFamily = FontFamily(
+                Font(R.font.plus_jakarta_sans)
+            ),
+            color = if (isSelected) MaterialTheme.colors.background else MaterialTheme.colors.onBackground,
+            fontSize = 12.sp,
+            modifier = modifier.fillMaxWidth()
+        )
+    }
 }
 
 @Preview
