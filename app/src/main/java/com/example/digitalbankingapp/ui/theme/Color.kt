@@ -12,3 +12,4 @@ val DarkGray = Color(0xFF757575)
 
 val ArcCommerceColor = Color(0xFFFAF9B8)
 val ArcPaymentColor = Color(0xFFD2BEEE)
+val ArcTransferColor = Color(0xFFCFFADE)

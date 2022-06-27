@@ -4,6 +4,7 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -13,56 +14,54 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.TransactionsAppBar
-import com.example.digitalbankingapp.ui.theme.ArcCommerceColor
-import com.example.digitalbankingapp.ui.theme.ArcPaymentColor
+import com.example.digitalbankingapp.data.balanceData
+import com.example.digitalbankingapp.model.BalanceModel
+import com.example.digitalbankingapp.ui.theme.DarkGray
+import com.example.digitalbankingapp.view.formattedBalance
 
 @Composable
 fun TransactionsScreen(
     navController: NavController
 ) {
+    val data = balanceData()
+
     Scaffold(
         topBar = { TransactionsAppBar(navController) }
     ) {
-        Column {
-
-
-            Box(modifier = Modifier.padding(16.dp)) {
-
-                TransactionsArc(
-                    percentage = 0.8f,
-                )
-                Column(
-                    modifier = Modifier
-                        .align(Alignment.Center)
-                        .offset(y = (-30).dp)
-                ) {
-                    Text(text = "Balance", Modifier.align(Alignment.CenterHorizontally))
-                    Text(text = "15 000 usd")
-                    Spacer(modifier = Modifier.height(30.dp))
-                    Text(text = "Legend here")
-                }
-            }
-            Text(text = "15 000 usd")
+        SharesArc(balanceData = data)
+        Column(
+        ) {
+            DisplayBalance(formattedBalance(data.sumOf { it.balance }))
+            Spacer(modifier = Modifier.height(48.dp))
+            DisplayLegend(data)
         }
     }
 }
 
 @Composable
-fun TransactionsArc(
+fun SharesArc(
     modifier: Modifier = Modifier,
-    percentage: Float,
+    balanceData: List<BalanceModel>,
 ) {
     Canvas(
         modifier = modifier
-//            .padding(16.dp)
+            .padding(16.dp)
             .height(380.dp)
             .fillMaxWidth()
     )
     {
+        val totalSum = balanceData.sumOf { it.balance }
+        val shares = balanceData.map { it.balance * 100 / totalSum }
+        val sweepAngles = shares.map { 180 * it.toFloat() / 100 }
+        var startAngle = -180f
         val strokeWidth = 35.dp
         val sizeArc = size / 1.2f
         val topLeft = Offset(
@@ -71,32 +70,65 @@ fun TransactionsArc(
         )
         val stroke = Stroke(strokeWidth.toPx(), cap = StrokeCap.Butt)
 
-        //eCommerce line
-        drawArc(
-            color = ArcCommerceColor,
-            startAngle = -180f,
-            sweepAngle = 180f,
-            topLeft = topLeft,
-            useCenter = false,
-            style = stroke,
-            size = sizeArc
-        )
-        //ePayment line
-        drawArc(
-            color = ArcPaymentColor,
-            startAngle = -180f,
-            sweepAngle = 180f * percentage,
-            topLeft = topLeft,
-            useCenter = false,
-            style = stroke,
-            size = sizeArc
-        )
+        for (i in balanceData.indices) {
+            drawArc(
+                color = balanceData[i].color,
+                startAngle = startAngle,
+                sweepAngle = sweepAngles[i],
+                topLeft = topLeft,
+                useCenter = false,
+                style = stroke,
+                size = sizeArc
+            )
+            startAngle += sweepAngles[i]
+        }
+
 
     }
 }
 
 @Composable
-fun DisplayLegend(color: Color, legend: String) {
+fun DisplayBalance(amount: String) {
+    Column(
+        modifier = Modifier
+            .padding(top = 128.dp)
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(
+            text = "Balance",
+            fontFamily = FontFamily(
+                Font(R.font.plus_jakarta_sans)
+            ),
+            color = DarkGray,
+            fontSize = 14.sp
+        )
+        Text(
+            fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+            text = "USD $amount",
+            fontSize = 14.sp,
+            color = MaterialTheme.colors.onBackground,
+        )
+    }
+}
+
+@Composable
+fun DisplayLegend(data: List<BalanceModel>) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly
+    ) {
+        for (i in data.indices) {
+            DisplayLegendItem(
+                color = data[i].color,
+                legend = data[i].description
+            )
+        }
+    }
+}
+
+@Composable
+fun DisplayLegendItem(color: Color, legend: String) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -115,7 +147,7 @@ fun DisplayLegend(color: Color, legend: String) {
 @Preview
 @Composable
 fun PreviewArcs() {
-    TransactionsArc(
-        percentage = 0.8f,
+    SharesArc(
+        balanceData = balanceData()
     )
 }

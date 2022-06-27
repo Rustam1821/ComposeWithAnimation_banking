@@ -1,8 +1,12 @@
 package com.example.digitalbankingapp.data
 
 import com.example.digitalbankingapp.R
+import com.example.digitalbankingapp.model.BalanceModel
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.model.TransactionModel
+import com.example.digitalbankingapp.ui.theme.ArcCommerceColor
+import com.example.digitalbankingapp.ui.theme.ArcPaymentColor
+import com.example.digitalbankingapp.ui.theme.ArcTransferColor
 
 fun creditCardData(): List<CreditCardModel> = listOf(
     CreditCardModel(
@@ -46,4 +50,24 @@ fun transactionsData(): List<TransactionModel> {
         result.addAll(threeElements)
     }
     return result
+}
+
+fun balanceData(): List<BalanceModel> {
+    return listOf(
+        BalanceModel(
+            balance = 20112.03,
+            color = ArcTransferColor,
+            description = "Transfer"
+        ),
+        BalanceModel(
+            balance = 24351.07,
+            color = ArcPaymentColor,
+            description = "ePayment"
+        ),
+        BalanceModel(
+            balance = 20893.05,
+            color = ArcCommerceColor,
+            description = "eCommerce"
+        ),
+    )
 }
