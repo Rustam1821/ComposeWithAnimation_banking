@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -18,13 +19,13 @@ import androidx.navigation.NavController
 fun HomeAppBar() {
     TopAppBar(
         title = {
-            Text(text = "My digital bank")
+            Text(text = stringResource(id = R.string.home_top_bar))
         },
         navigationIcon = {
             IconButton(
                 onClick = {}
             ) {
-                Icon(Icons.Filled.Menu, "")
+                Icon(Icons.Filled.Menu, null)
             }
         },
         backgroundColor = MaterialTheme.colors.background,
@@ -40,7 +41,7 @@ fun TransactionsAppBar(navController: NavController) {
     TopAppBar(
         title = {
             Text(
-                text = "Transactions History",
+                text = stringResource(id = R.string.transactions_top_bar),
                 modifier = Modifier
                     .padding(end = 32.dp)
                     .fillMaxWidth(),
@@ -52,7 +53,7 @@ fun TransactionsAppBar(navController: NavController) {
                 IconButton(onClick = { navController.navigateUp() }) {
                     Icon(
                         imageVector = Icons.Outlined.ArrowBack,
-                        contentDescription = "Back"
+                        contentDescription = "Back",
                     )
                 }
             }

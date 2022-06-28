@@ -17,5 +17,23 @@
     <string name="transactions_balance">Balance</string>
     <string name="transactions_amount">USD %1$S</string>
 
+    <string name="transactions_arc_transfer">Transfer</string>
+    <string name="transactions_arc_payment">ePayment</string>
+    <string name="transactions_arc_commerce">eCommerce</string>
+
+    <string name="transactions_top_bar">Transactions History</string>
+
+    <!--    HomeScreen  -->
+    <string name="home_screen_transactions">Transactions</string>
+    <string name="home_screen_view_all">View All</string>
+    <string name="home_top_bar">My digital bank</string>
+
+    <string name="home_menu_item_transfer">Transfer</string>
+    <string name="home_menu_item_payment">Payment</string>
+    <string name="home_menu_item_shopping">Shopping</string>
+    <string name="home_menu_item_more">More</string>
+
+    <!--    CreditCard  -->
+    <string name="credit_card_balance">Balance</string>
 
 </resources>

@@ -6,6 +6,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.digitalbankingapp.AddNewCardBox
 import com.example.digitalbankingapp.HomeAppBar
@@ -16,7 +17,7 @@ import com.example.digitalbankingapp.view.TwoCards
 @Composable
 fun HomeScreen() {
     Scaffold(
-        topBar = {HomeAppBar()}
+        topBar = { HomeAppBar() }
     ) {
         HomeScreenContent()
     }
@@ -47,7 +48,7 @@ private fun HomeScreenContent() {
         ) {
             menuItems.forEach { menuItem ->
                 MenuItemButton(
-                    text = menuItem.label,
+                    text = stringResource(id = menuItem.label),
                     iconId = menuItem.iconId
                 )
             }

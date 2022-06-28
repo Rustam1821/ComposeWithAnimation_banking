@@ -57,17 +57,17 @@ fun balanceData(): List<BalanceModel> {
         BalanceModel(
             balance = 20112.03,
             color = ArcTransferColor,
-            description = "Transfer"
+            description = R.string.transactions_arc_transfer,
         ),
         BalanceModel(
             balance = 24351.07,
             color = ArcPaymentColor,
-            description = "ePayment"
+            description = R.string.transactions_arc_payment,
         ),
         BalanceModel(
             balance = 20893.05,
             color = ArcCommerceColor,
-            description = "eCommerce"
+            description = R.string.transactions_arc_commerce,
         ),
     )
 }

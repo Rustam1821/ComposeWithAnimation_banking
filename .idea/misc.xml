@@ -64,6 +64,11 @@
         <entry key="../../../../layout/compose-model-1656336155866.xml" value="0.67" />
         <entry key="../../../../layout/compose-model-1656341662917.xml" value="0.5893129770992367" />
         <entry key="../../../../layout/compose-model-1656343770372.xml" value="0.24366554054054054" />
+        <entry key="../../../../layout/compose-model-1656406601979.xml" value="0.22" />
+        <entry key="../../../../layout/compose-model-1656411337759.xml" value="0.5740458015267176" />
+        <entry key="../../../../layout/compose-model-1656412395175.xml" value="0.15878378378378377" />
+        <entry key="../../../../layout/compose-model-1656412869009.xml" value="0.2796296296296296" />
+        <entry key="../../../../layout/compose-model-1656414510361.xml" value="0.2796296296296296" />
         <entry key="app/src/main/res/drawable-v24/baseline_payments_24.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable-v24/ic_botbar_home.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1765" />
@@ -72,6 +77,7 @@
         <entry key="app/src/main/res/drawable-v24/outline_live_help_24.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable-v24/outline_person_outline_24.xml" value="0.2355" />
         <entry key="app/src/main/res/drawable-v24/transaction_history_wh.xml" value="0.2355" />
+        <entry key="app/src/main/res/drawable/ic_credit_cards_icon.xml" value="0.151" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.1765" />
         <entry key="app/src/main/res/drawable/ic_mastercard_logo.xml" value="0.1765" />
         <entry key="app/src/main/res/drawable/ic_menu_more2.xml" value="0.2355" />

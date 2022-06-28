@@ -15,6 +15,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -23,7 +24,10 @@ import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.transactionsData
 import com.example.digitalbankingapp.model.TransactionModel
-import com.example.digitalbankingapp.ui.theme.*
+import com.example.digitalbankingapp.ui.theme.DarkGray
+import com.example.digitalbankingapp.ui.theme.Gray90
+import com.example.digitalbankingapp.ui.theme.Gray98
+import com.example.digitalbankingapp.utils.EMPTY_STRING
 
 @Composable
 fun Transactions(
@@ -33,14 +37,17 @@ fun Transactions(
             .height(8.dp)
             .fillMaxWidth()
     )
-    SubsectionHeader("Transactions", "View All")
+    SubsectionHeader(
+        stringResource(id = R.string.home_screen_transactions),
+        stringResource(id = R.string.home_screen_view_all)
+    )
     TransactionItems()
 }
 
 @Composable
 fun SubsectionHeader(
     startString: String,
-    endString: String = ""
+    endString: String = EMPTY_STRING,
 ) {
     Row(
         modifier = Modifier

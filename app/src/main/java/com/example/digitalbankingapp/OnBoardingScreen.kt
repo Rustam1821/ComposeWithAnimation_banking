@@ -37,7 +37,7 @@ fun OnBoardingScreen(
             {
                 Image(
                     painter = painterResource(id = R.drawable.starting_screen),
-                    contentDescription = "",
+                    contentDescription = null,
                     modifier = Modifier
                         .fillMaxSize()
                         .padding(bottom = 160.dp)

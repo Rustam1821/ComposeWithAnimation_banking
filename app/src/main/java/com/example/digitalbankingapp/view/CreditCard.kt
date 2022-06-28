@@ -14,6 +14,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -26,6 +27,7 @@ import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.utils.CardNumberSplitter
+import com.example.digitalbankingapp.utils.DECIMAL_FORMAT_PATTERN
 import com.example.digitalbankingapp.utils.cardMeasuredHeight
 import java.text.DecimalFormat
 import kotlin.math.abs
@@ -72,7 +74,8 @@ fun CreditCard(
                         top.linkTo(icCardEntity.bottom, margin = 8.dp)
                         start.linkTo(parent.start)
                         end.linkTo(parent.end)
-                    }.padding(horizontal = cardPadding),
+                    }
+                    .padding(horizontal = cardPadding),
                 cardNumber = cardNumber
             )
 
@@ -236,7 +239,7 @@ private fun Balance(amount: String) {
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
                 fontSize = 10.sp,
                 color = Color.Gray,
-                text = "Balance",
+                text = stringResource(id = R.string.credit_card_balance),
             )
             Text(
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
@@ -256,7 +259,7 @@ fun CreditCardPreview() {
 }
 
 fun formattedBalance(balance: Double): String {
-    val dec = DecimalFormat("#,###.00")
+    val dec = DecimalFormat(DECIMAL_FORMAT_PATTERN)
     return dec.format(balance)
 }
 

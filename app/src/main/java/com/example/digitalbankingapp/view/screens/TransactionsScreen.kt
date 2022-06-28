@@ -129,7 +129,7 @@ fun DisplayLegend(data: List<BalanceModel>) {
         for (i in data.indices) {
             DisplayLegendItem(
                 color = data[i].color,
-                legend = data[i].description
+                legend = stringResource(id = data[i].description)
             )
         }
     }

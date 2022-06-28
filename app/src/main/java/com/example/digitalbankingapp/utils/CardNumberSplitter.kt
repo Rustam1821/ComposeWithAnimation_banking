@@ -3,10 +3,10 @@ package com.example.digitalbankingapp.utils
 class CardNumberSplitter(
     private val number: String,
 ) {
-    var first = ""
-    var second = ""
-    var third = ""
-    var fourth = ""
+    var first = EMPTY_STRING
+    var second = EMPTY_STRING
+    var third = EMPTY_STRING
+    var fourth = EMPTY_STRING
 
     init {
         splitCardNumber()
