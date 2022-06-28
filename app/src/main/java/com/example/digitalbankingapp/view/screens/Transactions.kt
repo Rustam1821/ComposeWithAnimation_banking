@@ -28,17 +28,20 @@ import com.example.digitalbankingapp.ui.theme.*
 @Composable
 fun Transactions(
 ) {
-    TransactionsHeader()
-    TransactionItems()
-}
-
-@Composable
-fun TransactionsHeader() {
     Spacer(
         modifier = Modifier
             .height(8.dp)
             .fillMaxWidth()
     )
+    SubsectionHeader("Transactions", "View All")
+    TransactionItems()
+}
+
+@Composable
+fun SubsectionHeader(
+    startString: String,
+    endString: String = ""
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -54,13 +57,13 @@ fun TransactionsHeader() {
             fontWeight = FontWeight.Bold,
             fontSize = 18.sp,
             color = color,
-            text = "Transactions",
+            text = startString,
         )
         Text(
             fontFamily = fontFamily,
             fontSize = 13.sp,
             color = color,
-            text = "View All"
+            text = endString
         )
     }
 }
