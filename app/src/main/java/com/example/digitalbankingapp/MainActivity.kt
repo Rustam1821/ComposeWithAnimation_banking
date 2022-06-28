@@ -15,7 +15,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.digitalbankingapp.ui.theme.DigitalBankingAppTheme
 
@@ -32,10 +31,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DigitalBanking() {
-    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
-    if (shouldShowOnboarding) {
+    var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true) }
+    if (shouldShowOnBoarding) {
         OnBoardingScreen {
-            shouldShowOnboarding = false
+            shouldShowOnBoarding = false
         }
     } else {
         MainScreen()

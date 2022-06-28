@@ -2,6 +2,7 @@ package com.example.digitalbankingapp.view.screens
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -11,7 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.example.digitalbankingapp.NavigationItem
 import com.example.digitalbankingapp.R
 
-private val screens = listOf(
+private val drawerItems = listOf(
     NavigationItem.Profile,
     NavigationItem.Home,
     NavigationItem.Transactions,
@@ -32,12 +33,17 @@ fun BankDrawer(
             contentDescription = null
         )
 
-        for (screen in screens) {
+        drawerItems.forEach { screen ->
             Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = screen.route,
-                style = MaterialTheme.typography.button
-            )
+            Row {
+                Icon(screen.icon_filled, null)
+                Spacer(modifier = Modifier.width(16.dp))
+                Text(
+                    text = screen.title,
+                    style = MaterialTheme.typography.button
+                )
+
+            }
         }
     }
 }

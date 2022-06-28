@@ -13,30 +13,35 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 sealed class NavigationItem(
     val route: String,
+    val title: String,
     val icon_outlined: ImageVector,
     val icon_filled: ImageVector,
 ) {
     object Home : NavigationItem(
-        route = "Home",
+        route = "home",
+        title = "Home",
         icon_outlined = Icons.Outlined.Home,
         icon_filled = Icons.Filled.Home,
 
     )
 
     object Transactions : NavigationItem(
-        route = "Transactions",
+        route = "transactions",
+        title = "Transactions",
         icon_outlined = Icons.Outlined.Leaderboard,
         icon_filled = Icons.Filled.Leaderboard,
     )
 
     object Question : NavigationItem(
-        route = "Question",
+        route = "question",
+        title = "Question",
         icon_outlined = Icons.Outlined.LiveHelp,
         icon_filled = Icons.Filled.LiveHelp,
     )
 
     object Profile : NavigationItem(
-        route = "Profile",
+        route = "profile",
+        title = "Profile",
         icon_outlined = Icons.Outlined.Person,
         icon_filled = Icons.Filled.Person,
     )

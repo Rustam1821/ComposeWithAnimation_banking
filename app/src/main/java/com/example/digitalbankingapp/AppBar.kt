@@ -14,17 +14,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.digitalbankingapp.view.screens.BankDrawer
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
-@Preview
 @Composable
-fun HomeAppBar() {
+fun HomeAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
     TopAppBar(
         title = {
             Text(text = stringResource(id = R.string.home_top_bar))
         },
         navigationIcon = {
             IconButton(
-                onClick = {}
+                onClick = {
+                    scope.launch { scaffoldState.drawerState.open() }
+                }
             ) {
                 Icon(Icons.Filled.Menu, null)
             }
