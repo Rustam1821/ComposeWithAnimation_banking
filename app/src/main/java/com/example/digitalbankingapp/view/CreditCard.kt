@@ -226,8 +226,8 @@ private fun Balance(amount: String) {
             .height(40.dp),
 
         shape = RoundedCornerShape(
-            bottomEnd = 10.dp,
             bottomStart = 10.dp,
+            bottomEnd = 10.dp,
         ),
         backgroundColor = MaterialTheme.colors.onBackground,
     ) {

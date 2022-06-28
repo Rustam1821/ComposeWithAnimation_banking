@@ -5,7 +5,6 @@ import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -193,7 +192,7 @@ private fun ChoicePeriodChip(
 ) {
     Surface(
         color = if (isSelected) MaterialTheme.colors.onBackground else MaterialTheme.colors.background,
-        shape = RoundedCornerShape(8.dp),
+        shape = MaterialTheme.shapes.medium,
         border = BorderStroke(width = 1.dp, color = DarkGray),
         modifier = modifier.width(100.dp)
     ) {

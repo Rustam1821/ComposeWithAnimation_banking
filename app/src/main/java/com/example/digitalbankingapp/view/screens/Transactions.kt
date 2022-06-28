@@ -3,7 +3,6 @@ package com.example.digitalbankingapp.view.screens
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -95,7 +94,7 @@ fun TransactionItem(transaction: TransactionModel) {
         backgroundColor = Gray98,
         modifier = Modifier
             .padding(vertical = 4.dp, horizontal = 16.dp)
-            .clip(RoundedCornerShape(16.dp)),
+            .clip(MaterialTheme.shapes.large),
         elevation = 0.dp
     ) {
         Row(

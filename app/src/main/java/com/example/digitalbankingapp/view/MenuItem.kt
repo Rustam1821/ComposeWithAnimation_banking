@@ -2,7 +2,6 @@ package com.example.digitalbankingapp.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -32,12 +31,12 @@ fun MenuItemButton(
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-        Box(modifier = Modifier.clip(RoundedCornerShape(16.dp))) {
+        Box(modifier = Modifier.clip(MaterialTheme.shapes.large)) {
             IconButton(
                 onClick = {},
                 modifier = Modifier
                     .size(64.dp)
-                    .clip(RoundedCornerShape(5.dp)),
+                    .clip(MaterialTheme.shapes.small),
             ) {
                 Icon(
                     modifier = Modifier
