@@ -7,6 +7,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
@@ -58,7 +59,7 @@ fun OnBoardingScreen(
                         modifier = Modifier
                             .padding(vertical = 8.dp),
                         text = stringResource(id = R.string.on_boarding_lure),
-                        color = Gray90,
+                        color = Gray90,//TODO: change depending on the theme
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
                     )
                     Button(
@@ -71,7 +72,7 @@ fun OnBoardingScreen(
                         Text(
                             text = stringResource(id = R.string.on_boarding_btn_text),
                             fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
-                            color = MaterialTheme.colors.onBackground,
+                            color = Color.Black,
                         )
                     }
                 }
