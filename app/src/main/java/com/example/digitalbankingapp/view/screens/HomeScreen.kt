@@ -17,7 +17,8 @@ import com.example.digitalbankingapp.view.TwoCards
 @Composable
 fun HomeScreen() {
     Scaffold(
-        topBar = { HomeAppBar() }
+        topBar = { HomeAppBar() },
+        drawerContent = {BankDrawer()}
     ) {
         HomeScreenContent()
     }
