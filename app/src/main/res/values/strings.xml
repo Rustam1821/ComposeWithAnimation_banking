@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Digital Banking App</string>
+
+    <!--    OnBoarding-->
+    <string name="on_boarding_moto">Easy banking, easy life</string>
+    <string name="on_boarding_lure">Friendly digital banking to make you feel better to manage your financial matter!</string>
+    <string name="on_boarding_btn_text">Get Started</string>
+
 </resources>

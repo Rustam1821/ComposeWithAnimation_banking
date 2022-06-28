@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
@@ -48,7 +49,7 @@ fun OnBoardingScreen(
                     horizontalAlignment = Alignment.Start,
                 ) {
                     Text(
-                        text = "Easy banking, easy life",
+                        text = stringResource(id = R.string.on_boarding_moto),
                         color = MaterialTheme.colors.background,
                         fontSize = 32.sp,
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
@@ -56,7 +57,7 @@ fun OnBoardingScreen(
                     Text(
                         modifier = Modifier
                             .padding(vertical = 8.dp),
-                        text = "Friendly digital banking to make you feel better to manage your financial matter!",
+                        text = stringResource(id = R.string.on_boarding_lure),
                         color = Gray90,
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
                     )
@@ -68,7 +69,7 @@ fun OnBoardingScreen(
                         onClick = onClick,
                     ) {
                         Text(
-                            text = "Get Started",
+                            text = stringResource(id = R.string.on_boarding_btn_text),
                             fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
                             color = MaterialTheme.colors.onBackground,
                         )
