@@ -16,6 +16,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
@@ -46,7 +47,7 @@ fun TransactionsScreen(
             Spacer(modifier = Modifier.height(48.dp))
             DisplayLegend(data)
             Spacer(modifier = Modifier.height(24.dp))
-            SubsectionHeader("Details")
+            SubsectionHeader(stringResource(id = R.string.transactions_details))
             Spacer(modifier = Modifier.height(8.dp))
             PeriodCategoryTabs(onPeriodSelected = {})
             TransactionItems()
@@ -89,8 +90,6 @@ fun SharesArc(
             )
             startAngle += sweepAngles[i]
         }
-
-
     }
 }
 
@@ -103,7 +102,7 @@ fun DisplayBalance(amount: String) {
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(
-            text = "Balance",
+            text = stringResource(id = R.string.transactions_balance),
             fontFamily = FontFamily(
                 Font(R.font.plus_jakarta_sans)
             ),
@@ -112,7 +111,7 @@ fun DisplayBalance(amount: String) {
         )
         Text(
             fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
-            text = "USD $amount",
+            text = stringResource(id = R.string.transactions_amount, amount),
             fontSize = 14.sp,
             color = MaterialTheme.colors.onBackground,
         )
@@ -177,7 +176,7 @@ private fun PeriodCategoryTabs(
                 }
             ) {
                 ChoicePeriodChip(
-                    text = periodItem.value,
+                    text = stringResource(id = periodItem.value),
                     isSelected = index == selectedTab.value,
                     modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
                 )
@@ -198,16 +197,16 @@ private fun ChoicePeriodChip(
         border = BorderStroke(width = 1.dp, color = DarkGray),
         modifier = modifier.width(100.dp)
     ) {
-            Text(
-                text = text,
-                fontFamily = FontFamily(
-                    Font(R.font.plus_jakarta_sans)
-                ),
-                textAlign = TextAlign.Center,
-                color = if (isSelected) MaterialTheme.colors.background else MaterialTheme.colors.onBackground,
-                fontSize = 12.sp,
-                modifier = modifier.fillMaxWidth()
-            )
+        Text(
+            text = text,
+            fontFamily = FontFamily(
+                Font(R.font.plus_jakarta_sans)
+            ),
+            textAlign = TextAlign.Center,
+            color = if (isSelected) MaterialTheme.colors.background else MaterialTheme.colors.onBackground,
+            fontSize = 12.sp,
+            modifier = modifier.fillMaxWidth()
+        )
     }
 }
 

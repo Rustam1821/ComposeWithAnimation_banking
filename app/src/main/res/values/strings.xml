@@ -1,9 +1,21 @@
 <resources>
     <string name="app_name">Digital Banking App</string>
 
-    <!--    OnBoarding-->
+    <!--    OnBoarding  -->
     <string name="on_boarding_moto">Easy banking, easy life</string>
     <string name="on_boarding_lure">Friendly digital banking to make you feel better to manage your financial matter!</string>
     <string name="on_boarding_btn_text">Get Started</string>
+
+    <!--    Transactions  -->
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
+    <string name="this_month">This Month</string>
+    <string name="three_months">3 Months</string>
+    <string name="six_months">6 Months</string>
+    <string name="this_year">This Year</string>
+    <string name="transactions_details">Details</string>
+    <string name="transactions_balance">Balance</string>
+    <string name="transactions_amount">USD %1$S</string>
+
 
 </resources>
