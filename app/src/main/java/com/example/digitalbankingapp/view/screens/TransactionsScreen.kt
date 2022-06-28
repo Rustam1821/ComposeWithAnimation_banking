@@ -18,6 +18,7 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,12 +41,15 @@ fun TransactionsScreen(
         topBar = { TransactionsAppBar(navController) }
     ) {
         SharesArc(balanceData = data)
-        Column(
-        ) {
+        Column {
             DisplayBalance(formattedBalance(data.sumOf { it.balance }))
             Spacer(modifier = Modifier.height(48.dp))
             DisplayLegend(data)
+            Spacer(modifier = Modifier.height(24.dp))
+            SubsectionHeader("Details")
+            Spacer(modifier = Modifier.height(8.dp))
             PeriodCategoryTabs(onPeriodSelected = {})
+            TransactionItems()
         }
     }
 }
@@ -57,7 +61,6 @@ fun SharesArc(
 ) {
     Canvas(
         modifier = modifier
-            .padding(16.dp)
             .height(380.dp)
             .fillMaxWidth()
     )
@@ -119,8 +122,10 @@ fun DisplayBalance(amount: String) {
 @Composable
 fun DisplayLegend(data: List<BalanceModel>) {
     Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp),
+        horizontalArrangement = Arrangement.SpaceBetween
     ) {
         for (i in data.indices) {
             DisplayLegendItem(
@@ -157,7 +162,7 @@ private fun PeriodCategoryTabs(
     var selectedTab = remember { mutableStateOf(0) }
     ScrollableTabRow(
         selectedTabIndex = selectedTab.value,
-        edgePadding = 16.dp,
+        edgePadding = 8.dp,
         modifier = modifier,
         divider = {},
         indicator = {},
@@ -174,7 +179,7 @@ private fun PeriodCategoryTabs(
                 ChoicePeriodChip(
                     text = periodItem.value,
                     isSelected = index == selectedTab.value,
-                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp)
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
                 )
             }
         }
@@ -191,17 +196,18 @@ private fun ChoicePeriodChip(
         color = if (isSelected) MaterialTheme.colors.onBackground else MaterialTheme.colors.background,
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(width = 1.dp, color = DarkGray),
-        modifier = modifier
+        modifier = modifier.width(100.dp)
     ) {
-        Text(
-            text = text,
-            fontFamily = FontFamily(
-                Font(R.font.plus_jakarta_sans)
-            ),
-            color = if (isSelected) MaterialTheme.colors.background else MaterialTheme.colors.onBackground,
-            fontSize = 12.sp,
-            modifier = modifier.fillMaxWidth()
-        )
+            Text(
+                text = text,
+                fontFamily = FontFamily(
+                    Font(R.font.plus_jakarta_sans)
+                ),
+                textAlign = TextAlign.Center,
+                color = if (isSelected) MaterialTheme.colors.background else MaterialTheme.colors.onBackground,
+                fontSize = 12.sp,
+                modifier = modifier.fillMaxWidth()
+            )
     }
 }
 
