@@ -105,7 +105,7 @@ fun DisplayBalance(amount: String) {
             fontFamily = FontFamily(
                 Font(R.font.plus_jakarta_sans)
             ),
-            color = DarkGray,
+            color = MaterialTheme.colors.secondary,
             fontSize = 14.sp
         )
         Text(

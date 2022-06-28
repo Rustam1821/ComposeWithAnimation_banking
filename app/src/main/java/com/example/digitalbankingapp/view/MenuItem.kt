@@ -52,7 +52,7 @@ fun MenuItemButton(
         Text(
             fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
             fontSize = 14.sp,
-            color = Color.Gray,
+            color = MaterialTheme.colors.secondary,
             text = text
         )
     }

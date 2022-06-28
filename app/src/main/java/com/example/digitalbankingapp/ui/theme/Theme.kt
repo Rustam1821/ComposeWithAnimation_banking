@@ -12,7 +12,8 @@ import androidx.compose.ui.text.font.FontFamily
 private val DarkColorPalette = darkColors(
     primary = Purple200,
     primaryVariant = Purple700,
-    secondary = Teal200,
+    secondary = Color.LightGray,
+    onSecondary = Color.DarkGray,
     background = Color.Black,
     onBackground = Color.White,
 )
@@ -20,7 +21,8 @@ private val DarkColorPalette = darkColors(
 private val LightColorPalette = lightColors(
     primary = Purple500,
     primaryVariant = Purple700,
-    secondary = Teal200,
+    secondary = Color.DarkGray,
+    onSecondary = Color.LightGray,
     background = Color.White,
     onBackground = Color.Black
 

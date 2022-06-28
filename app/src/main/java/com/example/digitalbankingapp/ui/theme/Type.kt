@@ -1,6 +1,8 @@
 package com.example.digitalbankingapp.ui.theme
 
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Typography
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -28,14 +30,22 @@ val Typography = Typography(
     subtitle1 = TextStyle(
         fontFamily = JakartaFonts,
         fontSize = 12.sp
-    )
+    ),
+
+    h4 = TextStyle(
+        fontFamily = JakartaFonts,
+        fontWeight = FontWeight.Bold,
+        fontSize = 32.sp,
+    ),
+
+    button = TextStyle(
+        fontFamily = JakartaFonts,
+        fontWeight = FontWeight.ExtraBold,
+        fontSize = 16.sp,
+        color = Color.Black,
+    ),
 
     /* Other default text styles to override
-    button = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.W500,
-        fontSize = 14.sp
-    ),
     caption = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,

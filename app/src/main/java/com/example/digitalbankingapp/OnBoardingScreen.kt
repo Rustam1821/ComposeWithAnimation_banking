@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.ui.theme.ArcTransferColor
 import com.example.digitalbankingapp.ui.theme.Gray90
+import com.example.digitalbankingapp.ui.theme.Typography
 
 @Composable
 fun OnBoardingScreen(
@@ -52,14 +53,13 @@ fun OnBoardingScreen(
                     Text(
                         text = stringResource(id = R.string.on_boarding_moto),
                         color = MaterialTheme.colors.background,
-                        fontSize = 32.sp,
-                        fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+                        style = Typography.h4,
                     )
                     Text(
                         modifier = Modifier
                             .padding(vertical = 8.dp),
                         text = stringResource(id = R.string.on_boarding_lure),
-                        color = Gray90,//TODO: change depending on the theme
+                        color = MaterialTheme.colors.onSecondary,
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
                     )
                     Button(
@@ -71,8 +71,7 @@ fun OnBoardingScreen(
                     ) {
                         Text(
                             text = stringResource(id = R.string.on_boarding_btn_text),
-                            fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
-                            color = Color.Black,
+                            style = MaterialTheme.typography.button,
                         )
                     }
                 }
