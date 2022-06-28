@@ -36,4 +36,12 @@
     <!--    CreditCard  -->
     <string name="credit_card_balance">Balance</string>
 
+    <!--    Profile  -->
+    <string name="profile_top_bar">Profile details</string>
+    <string name="profile_not_implemented">Profile View Not Yet Implemented</string>
+
+    <!--    Questions  -->
+    <string name="faq_top_bar">FAQ</string>
+    <string name="faq_not_implemented">FAQ View Not Yet Implemented</string>
+
 </resources>

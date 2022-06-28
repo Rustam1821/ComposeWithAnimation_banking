@@ -79,10 +79,10 @@ fun Navigation(
             TransactionsScreen(navController)
         }
         composable(NavigationItem.Question.route) {
-            QuestionScreen()
+            QuestionScreen(navController)
         }
         composable(NavigationItem.Profile.route) {
-            ProfileScreen()
+            ProfileScreen(navController)
         }
     }
 }

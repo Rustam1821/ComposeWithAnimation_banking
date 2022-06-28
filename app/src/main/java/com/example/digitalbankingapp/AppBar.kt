@@ -62,3 +62,57 @@ fun TransactionsAppBar(navController: NavController) {
         elevation = 10.dp,
     )
 }
+
+@Composable
+fun ProfileAppBar(navController: NavController) {
+    TopAppBar(
+        title = {
+            Text(
+                text = stringResource(id = R.string.profile_top_bar),
+                modifier = Modifier
+                    .padding(end = 32.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        },
+        navigationIcon = if (navController.previousBackStackEntry != null) {
+            {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowBack,
+                        contentDescription = "Back",
+                    )
+                }
+            }
+        } else null,
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 10.dp,
+    )
+}
+
+@Composable
+fun QuestionsAppBar(navController: NavController) {
+    TopAppBar(
+        title = {
+            Text(
+                text = stringResource(id = R.string.faq_top_bar),
+                modifier = Modifier
+                    .padding(end = 32.dp)
+                    .fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+        },
+        navigationIcon = if (navController.previousBackStackEntry != null) {
+            {
+                IconButton(onClick = { navController.navigateUp() }) {
+                    Icon(
+                        imageVector = Icons.Outlined.ArrowBack,
+                        contentDescription = "Back",
+                    )
+                }
+            }
+        } else null,
+        backgroundColor = MaterialTheme.colors.background,
+        elevation = 10.dp,
+    )
+}
