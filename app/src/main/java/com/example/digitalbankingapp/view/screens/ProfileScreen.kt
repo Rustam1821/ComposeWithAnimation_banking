@@ -40,6 +40,7 @@ fun ProfileScreen(navController: NavController) {
             Icon(
                 modifier = Modifier.size(80.dp),
                 imageVector = Icons.Outlined.Person,
+                tint = Color.Black,
                 contentDescription = null,
             )
             Text(

@@ -40,6 +40,7 @@ fun QuestionScreen(navController: NavController) {
             Icon(
                 modifier = Modifier.size(80.dp),
                 imageVector = Icons.Outlined.LiveHelp,
+                tint = Color.Black,
                 contentDescription = null,
             )
             Text(

@@ -20,7 +20,6 @@ import com.example.digitalbankingapp.view.TwoCards
 fun HomeScreen() {
     val scaffoldState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val scope = rememberCoroutineScope()
-    val navController = rememberNavController()
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = { HomeAppBar(scope, scaffoldState) },
