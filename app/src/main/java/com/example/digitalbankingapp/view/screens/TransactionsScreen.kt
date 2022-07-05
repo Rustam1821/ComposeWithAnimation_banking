@@ -46,7 +46,7 @@ fun TransactionsScreen(
             Spacer(modifier = Modifier.height(48.dp))
             DisplayLegend(data)
             Spacer(modifier = Modifier.height(24.dp))
-            SubsectionHeader(stringResource(id = R.string.transactions_details))
+            TransactionsHeader(stringResource(id = R.string.transactions_details), "")
             Spacer(modifier = Modifier.height(8.dp))
             PeriodCategoryTabs(onPeriodSelected = {})
             TransactionItems()

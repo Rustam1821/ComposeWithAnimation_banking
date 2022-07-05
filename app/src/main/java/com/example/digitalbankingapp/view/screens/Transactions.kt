@@ -1,24 +1,33 @@
 package com.example.digitalbankingapp.view.screens
 
+import android.util.Log
+import androidx.compose.animation.core.animateDpAsState
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.transactionsData
@@ -27,34 +36,34 @@ import com.example.digitalbankingapp.ui.theme.DarkGray
 import com.example.digitalbankingapp.ui.theme.Gray90
 import com.example.digitalbankingapp.ui.theme.Gray98
 import com.example.digitalbankingapp.utils.EMPTY_STRING
+import com.example.digitalbankingapp.view.MenuItem
+import com.example.digitalbankingapp.view.MenuItemButton
+import java.lang.Float.min
+
 
 @Composable
-fun Transactions(
+fun TransactionsHeader(
+    startString: String,
+    endString: String = EMPTY_STRING,
+//    scrollOffset: Float = 1f,
 ) {
+//    val tableSize by animateDpAsState(targetValue = max(0.dp, 50.dp * scrollOffset))
     Spacer(
         modifier = Modifier
             .height(8.dp)
             .fillMaxWidth()
+            .background(MaterialTheme.colors.background)
     )
-    SubsectionHeader(
-        stringResource(id = R.string.home_screen_transactions),
-        stringResource(id = R.string.home_screen_view_all)
-    )
-    TransactionItems()
-}
-
-@Composable
-fun SubsectionHeader(
-    startString: String,
-    endString: String = EMPTY_STRING,
-) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp),
+//            .height(tableSize)
+            .padding(horizontal = 16.dp)
+            .background(MaterialTheme.colors.background),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.Bottom,
-    ) {
+
+        ) {
         val fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold))
         val color = MaterialTheme.colors.onBackground
 
@@ -74,16 +83,63 @@ fun SubsectionHeader(
     }
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TransactionItems(
-    transactions: List<TransactionModel> = transactionsData()
+//    scrollOffset: Float = 1f,
+    transactions: List<TransactionModel> = transactionsData(),
 ) {
-    LazyColumn(
-        modifier = Modifier
-            .padding(vertical = 4.dp)
-    ) {
-        items(items = transactions) { transaction ->
-            TransactionItem(transaction)
+    val menuItems = listOf(
+        MenuItem.Transfer,
+        MenuItem.Payment,
+        MenuItem.Shopping,
+        MenuItem.More
+    )
+    val scrollState = rememberLazyListState()
+    val scrollOffset: Float = min(
+        1f,
+        1 - (scrollState.firstVisibleItemScrollOffset / 100f + scrollState.firstVisibleItemIndex)
+    )
+    var heightInPx by remember { mutableStateOf(IntSize.Zero) }
+    val tableSize by animateDpAsState(targetValue = max(0.dp, 92.dp * scrollOffset))
+    Column {
+
+        Row(
+            modifier = Modifier
+                .padding(horizontal = 16.dp)
+                .background(Color.Green)
+                .onGloballyPositioned {
+                    heightInPx = it.size
+                    Log.e("--->", "Height in px is $heightInPx")
+                }
+                .height(tableSize)
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            menuItems.forEach { menuItem ->
+                MenuItemButton(
+                    text = stringResource(id = menuItem.label),
+                    iconId = menuItem.iconId
+                )
+            }
+        }
+        val heightInDp = with(LocalDensity.current) { heightInPx.height.toDp() }
+        Log.e("--->", "Height in dp is $heightInDp")
+
+        LazyColumn(
+            modifier = Modifier.padding(vertical = 4.dp),
+            state = scrollState
+        ) {
+            stickyHeader {
+                TransactionsHeader(
+                    stringResource(id = R.string.home_screen_transactions),
+                    stringResource(id = R.string.home_screen_view_all),
+//                    scrollOffset
+                )
+            }
+            items(items = transactions) { transaction ->
+                TransactionItem(transaction)
+            }
         }
     }
 }

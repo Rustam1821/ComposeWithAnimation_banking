@@ -54,19 +54,20 @@ private fun HomeScreenContent() {
             TwoCards()
         }
 
-        Row(
-            modifier = Modifier
-                .padding(horizontal = 16.dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            menuItems.forEach { menuItem ->
-                MenuItemButton(
-                    text = stringResource(id = menuItem.label),
-                    iconId = menuItem.iconId
-                )
-            }
-        }
-        Transactions()
+//        Row(
+//            modifier = Modifier
+//                .padding(horizontal = 16.dp)
+//                .fillMaxWidth(),
+//            horizontalArrangement = Arrangement.SpaceBetween
+//        ) {
+//            menuItems.forEach { menuItem ->
+//                MenuItemButton(
+//                    text = stringResource(id = menuItem.label),
+//                    iconId = menuItem.iconId
+//                )
+//            }
+//        }
+        TransactionItems()
+//        Transactions()
     }
 }
