@@ -1,10 +1,13 @@
 package com.example.digitalbankingapp.view.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -21,13 +24,23 @@ private val drawerItems = listOf(
 
 @Composable
 fun BankDrawer(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    closeDrawer: () -> Unit,
 ) {
     Column(
         modifier
-            .fillMaxSize()
+            .fillMaxWidth()
             .padding(start = 32.dp, top = 32.dp)
     ) {
+
+        Icon(
+            modifier = modifier.clickable(
+                onClick = closeDrawer
+            ),
+            imageVector = Icons.Filled.ArrowBack,
+            contentDescription = "Back",
+        )
+
         Image(
             painter = painterResource(id = R.drawable.ic_credit_cards),
             contentDescription = null

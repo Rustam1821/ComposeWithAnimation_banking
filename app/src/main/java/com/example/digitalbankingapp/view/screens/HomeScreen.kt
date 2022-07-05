@@ -9,22 +9,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.digitalbankingapp.AddNewCardBox
 import com.example.digitalbankingapp.HomeAppBar
 import com.example.digitalbankingapp.view.MenuItem
 import com.example.digitalbankingapp.view.MenuItemButton
 import com.example.digitalbankingapp.view.TwoCards
+import kotlinx.coroutines.launch
 
 @Composable
 fun HomeScreen() {
-    val scaffoldState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
+    val scaffoldState =
+        rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val scope = rememberCoroutineScope()
+    val closeDrawer: () -> Unit = { scope.launch { scaffoldState.drawerState.close() } }
     Scaffold(
-        scaffoldState = scaffoldState,
         topBar = { HomeAppBar(scope, scaffoldState) },
+        scaffoldState = scaffoldState,
+        drawerContent = {
+            BankDrawer(
+                closeDrawer = closeDrawer
+            )
+        },
         drawerShape = RectangleShape,
-        drawerContent = {BankDrawer()}
+        drawerGesturesEnabled = false,
     ) {
         HomeScreenContent()
     }
