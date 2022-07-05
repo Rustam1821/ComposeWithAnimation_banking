@@ -80,5 +80,5 @@ fun OnBoardingScreen(
 @Preview(showBackground = true)
 @Composable
 fun OnboardingPreview() {
-    OnBoardingScreen({})
+    OnBoardingScreen{}
 }
