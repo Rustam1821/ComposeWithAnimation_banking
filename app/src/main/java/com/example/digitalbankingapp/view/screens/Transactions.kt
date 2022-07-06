@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
+import com.example.digitalbankingapp.AddNewCardBox
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.transactionsData
 import com.example.digitalbankingapp.model.TransactionModel
@@ -38,6 +39,7 @@ import com.example.digitalbankingapp.ui.theme.Gray98
 import com.example.digitalbankingapp.utils.EMPTY_STRING
 import com.example.digitalbankingapp.view.MenuItem
 import com.example.digitalbankingapp.view.MenuItemButton
+import com.example.digitalbankingapp.view.TwoCards
 import java.lang.Float.min
 
 
@@ -101,40 +103,52 @@ fun TransactionItems(
         1 - (scrollState.firstVisibleItemScrollOffset / 100f + scrollState.firstVisibleItemIndex)
     )
     var heightInPx by remember { mutableStateOf(IntSize.Zero) }
-    val tableSize by animateDpAsState(targetValue = max(0.dp, 92.dp * scrollOffset))
+    val tableSize by animateDpAsState(targetValue = max(0.dp, 322.dp * scrollOffset))
     Column {
-
-        Row(
+        Column (
             modifier = Modifier
                 .padding(horizontal = 16.dp)
-                .background(Color.Green)
+                .height(tableSize)
                 .onGloballyPositioned {
                     heightInPx = it.size
                     Log.e("--->", "Height in px is $heightInPx")
                 }
-                .height(tableSize)
                 .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            menuItems.forEach { menuItem ->
-                MenuItemButton(
-                    text = stringResource(id = menuItem.label),
-                    iconId = menuItem.iconId
-                )
+                ) {
+            Row {
+                AddNewCardBox()
+                TwoCards()
+            }
+
+            Row(
+                modifier = Modifier
+//                    .padding(horizontal = 16.dp)
+//                    .background(Color.Green)
+//                    .height(tableSize)
+
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                menuItems.forEach { menuItem ->
+                    MenuItemButton(
+                        text = stringResource(id = menuItem.label),
+                        iconId = menuItem.iconId
+                    )
+                }
             }
         }
         val heightInDp = with(LocalDensity.current) { heightInPx.height.toDp() }
         Log.e("--->", "Height in dp is $heightInDp")
+        Log.e("--->", "Height in px is $heightInPx")
 
         LazyColumn(
-            modifier = Modifier.padding(vertical = 4.dp),
+            modifier = Modifier.padding(vertical = 4.dp).background(MaterialTheme.colors.background),
             state = scrollState
         ) {
             stickyHeader {
                 TransactionsHeader(
                     stringResource(id = R.string.home_screen_transactions),
                     stringResource(id = R.string.home_screen_view_all),
-//                    scrollOffset
                 )
             }
             items(items = transactions) { transaction ->

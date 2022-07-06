@@ -6,6 +6,7 @@ import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -49,10 +50,10 @@ private fun HomeScreenContent() {
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
 
-        Row {
-            AddNewCardBox()
-            TwoCards()
-        }
+//        Row {
+//            AddNewCardBox()
+//            TwoCards()
+//        }
 
 //        Row(
 //            modifier = Modifier
