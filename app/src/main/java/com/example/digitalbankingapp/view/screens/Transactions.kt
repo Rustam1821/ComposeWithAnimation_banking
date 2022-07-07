@@ -50,12 +50,23 @@ fun HomeScreenContent() {
         1 - (scrollState.firstVisibleItemScrollOffset / 100f + scrollState.firstVisibleItemIndex)
     )
     val tableSize by animateDpAsState(targetValue = max(0.dp, 322.dp * scrollOffset))
+    val stickyHeaderContent = TransactionsHeader(
+        stringResource(id = R.string.home_screen_transactions),
+        stringResource(id = R.string.home_screen_view_all),
+    )
+
+
 
     Column(
         modifier = Modifier.background(MaterialTheme.colors.background)
     ) {
         HomeScreenCollapsingPart(tableSize)
-        HomeScreenScrollablePart(scrollState)
+        ScrollablePart(
+            scrollState = scrollState,
+            stickyHeaderContent = {
+                stickyHeaderContent
+            }
+        )
     }
 }
 
@@ -77,8 +88,9 @@ private fun HomeScreenCollapsingPart(tableSize: Dp) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-private fun HomeScreenScrollablePart(
+private fun ScrollablePart(
     scrollState: LazyListState,
+    stickyHeaderContent: @Composable() () -> Unit,
 ) {
     val transactions: List<TransactionModel> = transactionsData()
     LazyColumn(
@@ -88,10 +100,7 @@ private fun HomeScreenScrollablePart(
         state = scrollState
     ) {
         stickyHeader {
-            TransactionsHeader(
-                stringResource(id = R.string.home_screen_transactions),
-                stringResource(id = R.string.home_screen_view_all),
-            )
+            stickyHeaderContent()
         }
         items(items = transactions) { transaction ->
             TransactionItem(transaction)
