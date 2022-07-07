@@ -33,3 +33,14 @@ fun Modifier.cardMeasuredHeight() = this.then(
 
     }
 )
+
+/*
+
+ var heightInPx by remember { mutableStateOf(IntSize.Zero) }
+ Modifier.onGloballyPositioned { heightInPx = it.size },
+
+ val heightInDp = with(LocalDensity.current) { heightInPx.height.toDp() }
+ Log.e("--->", "Height of two cards in dp is $heightInDp")
+ Log.e("--->", "Height of two cards in px is $heightInPx")
+
+* */

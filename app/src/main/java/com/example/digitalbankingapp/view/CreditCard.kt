@@ -1,5 +1,6 @@
 package com.example.digitalbankingapp.view
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,6 +12,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -18,6 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
@@ -137,12 +141,11 @@ private fun CreditCardContainer(
     Card(
         modifier = Modifier
             .width(250.dp)
+            .height(170.dp)//todo: or 165
             .padding(
-                top = 8.dp,
-                end = 8.dp
-            )
-            .cardMeasuredHeight(),//todo: Get rid of it!!!!
-
+                top = 16.dp,
+                end = 16.dp
+            ),
         shape = RoundedCornerShape(
             topStart = 10.dp,
             topEnd = 10.dp,
@@ -223,7 +226,7 @@ private fun Balance(amount: String) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(40.dp),
+            .height(42.dp),
 
         shape = RoundedCornerShape(
             bottomStart = 10.dp,
@@ -233,7 +236,7 @@ private fun Balance(amount: String) {
     ) {
         Column(
             modifier = Modifier.padding(start = 16.dp),
-            verticalArrangement = Arrangement.Top
+            verticalArrangement = Arrangement.Center
         ) {
             Text(
                 fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
@@ -247,7 +250,6 @@ private fun Balance(amount: String) {
                 fontSize = 12.sp,
                 color = MaterialTheme.colors.background,
             )
-
         }
     }
 }

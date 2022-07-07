@@ -18,14 +18,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
@@ -102,19 +100,14 @@ fun TransactionItems(
         1f,
         1 - (scrollState.firstVisibleItemScrollOffset / 100f + scrollState.firstVisibleItemIndex)
     )
-    var heightInPx by remember { mutableStateOf(IntSize.Zero) }
     val tableSize by animateDpAsState(targetValue = max(0.dp, 322.dp * scrollOffset))
     Column {
-        Column (
+        Column(
             modifier = Modifier
                 .padding(horizontal = 16.dp)
                 .height(tableSize)
-                .onGloballyPositioned {
-                    heightInPx = it.size
-                    Log.e("--->", "Height in px is $heightInPx")
-                }
                 .fillMaxWidth(),
-                ) {
+        ) {
             Row {
                 AddNewCardBox()
                 TwoCards()
@@ -122,10 +115,6 @@ fun TransactionItems(
 
             Row(
                 modifier = Modifier
-//                    .padding(horizontal = 16.dp)
-//                    .background(Color.Green)
-//                    .height(tableSize)
-
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
@@ -137,12 +126,11 @@ fun TransactionItems(
                 }
             }
         }
-        val heightInDp = with(LocalDensity.current) { heightInPx.height.toDp() }
-        Log.e("--->", "Height in dp is $heightInDp")
-        Log.e("--->", "Height in px is $heightInPx")
 
         LazyColumn(
-            modifier = Modifier.padding(vertical = 4.dp).background(MaterialTheme.colors.background),
+            modifier = Modifier
+                .padding(vertical = 4.dp)
+                .background(MaterialTheme.colors.background),
             state = scrollState
         ) {
             stickyHeader {
