@@ -49,7 +49,7 @@ fun TransactionsScreen(
             TransactionsHeader(stringResource(id = R.string.transactions_details), "")
             Spacer(modifier = Modifier.height(8.dp))
             PeriodCategoryTabs(onPeriodSelected = {})
-            TransactionItems()
+            HomeScreenContent()
         }
     }
 }
