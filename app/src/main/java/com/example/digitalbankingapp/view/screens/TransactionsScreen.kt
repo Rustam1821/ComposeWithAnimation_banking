@@ -1,12 +1,19 @@
 package com.example.digitalbankingapp.view.screens
 
+import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -15,41 +22,95 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.max
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.TransactionsAppBar
 import com.example.digitalbankingapp.data.balanceData
+import com.example.digitalbankingapp.data.transactionsData
 import com.example.digitalbankingapp.model.BalanceModel
 import com.example.digitalbankingapp.model.PeriodCategory
+import com.example.digitalbankingapp.model.TransactionModel
 import com.example.digitalbankingapp.ui.theme.DarkGray
 import com.example.digitalbankingapp.view.formattedBalance
+import java.lang.Float.min
 
 @Composable
 fun TransactionsScreen(
     navController: NavController
 ) {
-    val data = balanceData()
-
     Scaffold(
         topBar = { TransactionsAppBar(navController) }
+    ) {
+        TransactionScreenContent()
+    }
+}
+
+@Composable
+private fun TransactionScreenContent() {
+    val scrollState = rememberLazyListState()
+    val scrollOffset: Float = min(
+        1f,
+        1 - (scrollState.firstVisibleItemScrollOffset / 100f + scrollState.firstVisibleItemIndex)
+    )
+    val tableSize by animateDpAsState(targetValue = max(0.dp, 380.dp * scrollOffset))
+
+    TransactionsScreenCollapsingPart(tableSize)
+    Column(
+    ) {
+        Spacer(modifier = Modifier.height(tableSize / 1.5f))
+        TransactionsScreenScrollablePart(scrollState)
+    }
+}
+
+@Composable
+private fun TransactionsScreenCollapsingPart(tableSize: Dp) {
+    val data = balanceData()
+    Box(
+        modifier = Modifier
+            .height(tableSize)
+            .fillMaxWidth()
     ) {
         SharesArc(balanceData = data)
         Column {
             DisplayBalance(formattedBalance(data.sumOf { it.balance }))
             Spacer(modifier = Modifier.height(48.dp))
             DisplayLegend(data)
-            Spacer(modifier = Modifier.height(24.dp))
-            TransactionsHeader(stringResource(id = R.string.transactions_details), "")
-            Spacer(modifier = Modifier.height(8.dp))
-            PeriodCategoryTabs(onPeriodSelected = {})
-            HomeScreenContent()
+        }
+    }
+}
+
+@OptIn(ExperimentalFoundationApi::class)
+@Composable
+private fun TransactionsScreenScrollablePart(
+    scrollState: LazyListState,
+) {
+    val transactions: List<TransactionModel> = transactionsData()
+    Box(
+        modifier = Modifier.padding(top = 0.dp)
+    ) {
+        LazyColumn(
+            modifier = Modifier
+                .padding(vertical = 4.dp)
+                .background(MaterialTheme.colors.background),
+            state = scrollState
+        ) {
+            stickyHeader {
+                PeriodCategoryRow(onPeriodSelected = {})
+            }
+            items(items = transactions) { transaction ->
+                TransactionItem(transaction)
+            }
         }
     }
 }
@@ -63,6 +124,10 @@ fun SharesArc(
         modifier = modifier
             .height(380.dp)
             .fillMaxWidth()
+            .graphicsLayer {
+                shape = CircleShape
+                clip = true
+            }
     )
     {
         val totalSum = balanceData.sumOf { it.balance }
@@ -152,35 +217,53 @@ fun DisplayLegendItem(color: Color, legend: String) {
 }
 
 @Composable
-private fun PeriodCategoryTabs(
+private fun PeriodCategoryRow(
     onPeriodSelected: (PeriodCategory) -> Unit,
     modifier: Modifier = Modifier
 ) {
     val periodCategories = PeriodCategory.values()
     var selectedTab = remember { mutableStateOf(0) }
-    ScrollableTabRow(
-        selectedTabIndex = selectedTab.value,
-        edgePadding = 8.dp,
-        modifier = modifier,
-        divider = {},
-        indicator = {},
-        backgroundColor = MaterialTheme.colors.background,
+    Column(
+        modifier = modifier
+            .background(MaterialTheme.colors.background)
+            .padding(horizontal = 8.dp)
     ) {
-        periodCategories.forEachIndexed { index, periodItem ->
-            Tab(
-                selected = selectedTab.value == index,
-                onClick = {
-                    selectedTab.value = index
-                    onPeriodSelected
+        Text(
+            modifier = modifier.padding(horizontal = 8.dp),
+            fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+            fontWeight = FontWeight.Bold,
+            fontSize = 18.sp,
+            color = MaterialTheme.colors.onBackground,
+            text = stringResource(id = R.string.transactions_details),
+        )
+
+        Spacer(modifier = Modifier.height(8.dp))
+
+        ScrollableTabRow(
+            selectedTabIndex = selectedTab.value,
+            edgePadding = 0.dp,
+            modifier = modifier,
+            divider = {},
+            indicator = {},
+            backgroundColor = MaterialTheme.colors.background,
+        ) {
+            periodCategories.forEachIndexed { index, periodItem ->
+                Tab(
+                    selected = selectedTab.value == index,
+                    onClick = {
+                        selectedTab.value = index
+                        onPeriodSelected
+                    }
+                ) {
+                    ChoicePeriodChip(
+                        text = stringResource(id = periodItem.value),
+                        isSelected = index == selectedTab.value,
+                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
+                    )
                 }
-            ) {
-                ChoicePeriodChip(
-                    text = stringResource(id = periodItem.value),
-                    isSelected = index == selectedTab.value,
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
-                )
             }
         }
+        Spacer(modifier = Modifier.height(8.dp))
     }
 }
 
@@ -212,7 +295,5 @@ private fun ChoicePeriodChip(
 @Preview
 @Composable
 fun PreviewArcs() {
-    SharesArc(
-        balanceData = balanceData()
-    )
+    TransactionScreenContent()
 }
