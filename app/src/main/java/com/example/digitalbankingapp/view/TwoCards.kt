@@ -1,9 +1,5 @@
 package com.example.digitalbankingapp.view
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.slideInHorizontally
-import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -33,6 +29,8 @@ import androidx.constraintlayout.compose.Dimension
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
+import com.example.digitalbankingapp.utils.AnimatedLowerCard
+import com.example.digitalbankingapp.utils.AnimatedUpperCard
 import com.example.digitalbankingapp.utils.CardNumberSplitter
 import com.example.digitalbankingapp.utils.DECIMAL_FORMAT_PATTERN
 import java.text.DecimalFormat
@@ -145,7 +143,6 @@ private fun CreditCardContainer(
             .height(170.dp)//todo: or 165
             .padding(
                 top = 16.dp,
-//                end = 16.dp,
             ),
         shape = RoundedCornerShape(
             topStart = 10.dp,
@@ -171,16 +168,15 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
 
 @Composable
 fun TwoCards() {
-    var isGreenCardUpper by rememberSaveable { mutableStateOf(true) }
+    var isGreenCardAtop by rememberSaveable { mutableStateOf(true) }
     ConstraintLayout(
         Modifier
             .clickable {
-                isGreenCardUpper = !isGreenCardUpper
+                isGreenCardAtop = !isGreenCardAtop
             }
             .fillMaxWidth()
     ) {
         val (upperGreenCard, lowerGreenCard, upperPurpleCard, lowerPurpleCard, bottomBalance) = createRefs()
-        val delay = 300
 
         Box(
             modifier = Modifier
@@ -188,16 +184,8 @@ fun TwoCards() {
                     end.linkTo(parent.end)
                 }
         ) {
-            AnimatedVisibility(
-                visible = isGreenCardUpper,
-                enter = slideInHorizontally(
-                    animationSpec = tween(
-                        delayMillis = delay,
-                    )
-                )  { fullWidth -> -fullWidth },
-                exit = slideOutHorizontally { fullWidth -> fullWidth/2 }
-
-            ) {
+            AnimatedLowerCard(isVisible = isGreenCardAtop)
+            {
                 CreditCard(
                     model = creditCardData()[1],
                     backgroundColor = fetchCardColor(1),
@@ -211,15 +199,8 @@ fun TwoCards() {
                     end.linkTo(parent.end)
                 }
         ) {
-            AnimatedVisibility(
-                visible = !isGreenCardUpper,
-                enter = slideInHorizontally(
-                    animationSpec = tween(
-                        delayMillis = delay,
-                    )
-                ) { fullWidth -> -fullWidth },
-                exit = slideOutHorizontally { fullWidth -> fullWidth/2 }
-            ) {
+            AnimatedLowerCard(isVisible = !isGreenCardAtop)
+            {
                 CreditCard(
                     model = creditCardData()[0],
                     backgroundColor = fetchCardColor(0),
@@ -233,15 +214,9 @@ fun TwoCards() {
                     start.linkTo(parent.start)
                 }
         ) {
-            AnimatedVisibility(
-                visible = !isGreenCardUpper,
-                enter = slideInHorizontally (
-                    animationSpec = tween(
-                        delayMillis = delay,
-                    )
-                ) { fullWidth -> fullWidth*2 },
-                exit = slideOutHorizontally { fullWidth -> -fullWidth/2 },
-            ) {
+
+            AnimatedUpperCard(isVisible = !isGreenCardAtop)
+            {
                 CreditCard(
                     model = creditCardData()[1],
                     backgroundColor = fetchCardColor(1),
@@ -255,15 +230,8 @@ fun TwoCards() {
                     start.linkTo(parent.start)
                 }
         ) {
-            AnimatedVisibility(
-                visible = isGreenCardUpper,
-                enter = slideInHorizontally (
-                    animationSpec = tween(
-                        delayMillis = delay,
-                    )
-                ) { fullWidth -> fullWidth*2 },
-                exit = slideOutHorizontally { fullWidth -> -fullWidth/2 },
-            ) {
+            AnimatedUpperCard(isVisible = isGreenCardAtop)
+            {
                 CreditCard(
                     model = creditCardData()[0],
                     backgroundColor = fetchCardColor(0),
