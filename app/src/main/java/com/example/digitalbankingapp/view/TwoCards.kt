@@ -1,6 +1,9 @@
 package com.example.digitalbankingapp.view
 
-import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.slideInHorizontally
+import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,12 +11,14 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.layout.onGloballyPositioned
-import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -21,20 +26,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.IntSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
 import androidx.constraintlayout.compose.Dimension
-import androidx.constraintlayout.compose.atMostWrapContent
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
 import com.example.digitalbankingapp.utils.CardNumberSplitter
 import com.example.digitalbankingapp.utils.DECIMAL_FORMAT_PATTERN
-import com.example.digitalbankingapp.utils.cardMeasuredHeight
 import java.text.DecimalFormat
-import kotlin.math.abs
 
 @Composable
 fun CreditCard(
@@ -144,7 +145,7 @@ private fun CreditCardContainer(
             .height(170.dp)//todo: or 165
             .padding(
                 top = 16.dp,
-                end = 16.dp
+//                end = 16.dp,
             ),
         shape = RoundedCornerShape(
             topStart = 10.dp,
@@ -170,52 +171,118 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
 
 @Composable
 fun TwoCards() {
-    var upperCardNumber by remember {
-        mutableStateOf(0)
-    }
+    var isGreenCardUpper by rememberSaveable { mutableStateOf(true) }
     ConstraintLayout(
         Modifier
             .clickable {
-                upperCardNumber = abs(upperCardNumber - 1)
+                isGreenCardUpper = !isGreenCardUpper
             }
             .fillMaxWidth()
     ) {
-        val (upperCard, lowerCard, bottomBalance) = createRefs()
-        var lowerCardNumber = abs(upperCardNumber - 1)
+        val (upperGreenCard, lowerGreenCard, upperPurpleCard, lowerPurpleCard, bottomBalance) = createRefs()
+        val delay = 300
+
         Box(
             modifier = Modifier
-                .constrainAs(lowerCard) {
+                .constrainAs(lowerPurpleCard) {
                     end.linkTo(parent.end)
                 }
         ) {
-            CreditCard(
-                model = creditCardData()[lowerCardNumber],
-                backgroundColor = fetchCardColor(lowerCardNumber),
-            )
+            AnimatedVisibility(
+                visible = isGreenCardUpper,
+                enter = slideInHorizontally(
+                    animationSpec = tween(
+                        delayMillis = delay,
+                    )
+                )  { fullWidth -> -fullWidth },
+                exit = slideOutHorizontally { fullWidth -> fullWidth/2 }
+
+            ) {
+                CreditCard(
+                    model = creditCardData()[1],
+                    backgroundColor = fetchCardColor(1),
+                )
+            }
         }
+
         Box(
             modifier = Modifier
-                .constrainAs(upperCard) {
+                .constrainAs(lowerGreenCard) {
+                    end.linkTo(parent.end)
+                }
+        ) {
+            AnimatedVisibility(
+                visible = !isGreenCardUpper,
+                enter = slideInHorizontally(
+                    animationSpec = tween(
+                        delayMillis = delay,
+                    )
+                ) { fullWidth -> -fullWidth },
+                exit = slideOutHorizontally { fullWidth -> fullWidth/2 }
+            ) {
+                CreditCard(
+                    model = creditCardData()[0],
+                    backgroundColor = fetchCardColor(0),
+                )
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .constrainAs(upperPurpleCard) {
                     start.linkTo(parent.start)
                 }
         ) {
-            CreditCard(
-                model = creditCardData()[upperCardNumber],
-                backgroundColor = fetchCardColor(upperCardNumber),
-            )
+            AnimatedVisibility(
+                visible = !isGreenCardUpper,
+                enter = slideInHorizontally (
+                    animationSpec = tween(
+                        delayMillis = delay,
+                    )
+                ) { fullWidth -> fullWidth*2 },
+                exit = slideOutHorizontally { fullWidth -> -fullWidth/2 },
+            ) {
+                CreditCard(
+                    model = creditCardData()[1],
+                    backgroundColor = fetchCardColor(1),
+                )
+            }
         }
+
+        Box(
+            modifier = Modifier
+                .constrainAs(upperGreenCard) {
+                    start.linkTo(parent.start)
+                }
+        ) {
+            AnimatedVisibility(
+                visible = isGreenCardUpper,
+                enter = slideInHorizontally (
+                    animationSpec = tween(
+                        delayMillis = delay,
+                    )
+                ) { fullWidth -> fullWidth*2 },
+                exit = slideOutHorizontally { fullWidth -> -fullWidth/2 },
+            ) {
+                CreditCard(
+                    model = creditCardData()[0],
+                    backgroundColor = fetchCardColor(0),
+                )
+            }
+        }
+
         Box(
             modifier = Modifier
                 .constrainAs(bottomBalance) {
-                    start.linkTo(upperCard.start)
-                    top.linkTo(upperCard.bottom)
-                    end.linkTo(lowerCard.end, margin = 16.dp)
+                    start.linkTo(parent.start)
+                    top.linkTo(parent.bottom)
+                    end.linkTo(parent.end)
                     width = Dimension.fillToConstraints
                 }
                 .fillMaxWidth()
 
         ) {
-            val amount = creditCardData()[lowerCardNumber].balance
+            val amount = creditCardData()[1].balance
             Balance(formattedBalance(amount))
         }
     }
