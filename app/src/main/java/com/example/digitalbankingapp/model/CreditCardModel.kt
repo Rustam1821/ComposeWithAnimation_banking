@@ -1,5 +1,6 @@
 package com.example.digitalbankingapp.model
 
+import androidx.compose.ui.graphics.Color
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.utils.CardIssuerFinder
 import com.example.digitalbankingapp.utils.DECIMAL_FORMAT_PATTERN
@@ -11,6 +12,7 @@ data class CreditCardModel(
     var expiration: String = EMPTY_STRING,
     var holderName: String = EMPTY_STRING,
     var balance: Double = 0.0,
+    var backgroundColorId: Int = 0,
 ) {
     val logoCardIssuer = when (CardIssuerFinder.findCardIssuer(number)) {
         CardIssuer.VISA -> R.drawable.ic_visa_logo
@@ -23,9 +25,4 @@ data class CreditCardModel(
 
     val encryptedCardNumber =
         "${number.substring(0, 4)}********${number.substring(12, number.length)}"
-
-    fun formattedBalance(balance: Float): String {
-        val dec = DecimalFormat(DECIMAL_FORMAT_PATTERN)
-        return dec.format(number)
-    }
 }

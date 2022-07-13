@@ -2,16 +2,15 @@ package com.example.digitalbankingapp.view
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -25,7 +24,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstraintLayout
-import androidx.constraintlayout.compose.Dimension
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.data.creditCardData
 import com.example.digitalbankingapp.model.CreditCardModel
@@ -38,10 +36,9 @@ import java.text.DecimalFormat
 @Composable
 fun CreditCard(
     model: CreditCardModel,
-    backgroundColor: Color
 ) {
     CreditCardContainer(
-        backgroundColor = backgroundColor,
+        backgroundColor = colorResource(id = model.backgroundColorId),
     ) {
         ConstraintLayout {
             val (
@@ -165,94 +162,63 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
     )
 }
 
-
 @Composable
 fun TwoCards() {
     var isGreenCardAtop by rememberSaveable { mutableStateOf(true) }
-    ConstraintLayout(
-        Modifier
-            .clickable {
+    val interactionSource = remember { MutableInteractionSource() }
+    val greenCreditCard = creditCardData()[0]
+    val purpleCreditCard = creditCardData()[1]
+    Column(
+        modifier = Modifier
+            .clickable(
+                interactionSource = interactionSource,
+                indication = null,
+            ) {
                 isGreenCardAtop = !isGreenCardAtop
             }
-            .fillMaxWidth()
-    ) {
-        val (upperGreenCard, lowerGreenCard, upperPurpleCard, lowerPurpleCard, bottomBalance) = createRefs()
-
+            .fillMaxWidth()) {
         Box(
-            modifier = Modifier
-                .constrainAs(lowerPurpleCard) {
-                    end.linkTo(parent.end)
-                }
+            modifier = Modifier.fillMaxWidth(),
         ) {
-            AnimatedLowerCard(isVisible = isGreenCardAtop)
-            {
-                CreditCard(
-                    model = creditCardData()[1],
-                    backgroundColor = fetchCardColor(1),
-                )
+
+            // LowerCards
+            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+                AnimatedLowerCard(isVisible = !isGreenCardAtop)
+                {
+                    CreditCard(
+                        model = greenCreditCard,
+                    )
+                }
+                AnimatedLowerCard(isVisible = isGreenCardAtop)
+                {
+                    CreditCard(
+                        model = purpleCreditCard,
+                    )
+                }
             }
-        }
 
-        Box(
-            modifier = Modifier
-                .constrainAs(lowerGreenCard) {
-                    end.linkTo(parent.end)
+            //UpperCards
+            Box(modifier = Modifier.align(Alignment.BottomStart)) {
+                AnimatedUpperCard(isVisible = isGreenCardAtop)
+                {
+                    CreditCard(
+                        model = greenCreditCard,
+                    )
                 }
-        ) {
-            AnimatedLowerCard(isVisible = !isGreenCardAtop)
-            {
-                CreditCard(
-                    model = creditCardData()[0],
-                    backgroundColor = fetchCardColor(0),
-                )
+                AnimatedUpperCard(isVisible = !isGreenCardAtop)
+                {
+                    CreditCard(
+                        model = purpleCreditCard,
+                    )
+                }
             }
+
         }
+        val topCard = if (isGreenCardAtop) {
+            greenCreditCard
+        } else purpleCreditCard
+        Balance(formattedBalance(topCard.balance))
 
-        Box(
-            modifier = Modifier
-                .constrainAs(upperPurpleCard) {
-                    start.linkTo(parent.start)
-                }
-        ) {
-
-            AnimatedUpperCard(isVisible = !isGreenCardAtop)
-            {
-                CreditCard(
-                    model = creditCardData()[1],
-                    backgroundColor = fetchCardColor(1),
-                )
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .constrainAs(upperGreenCard) {
-                    start.linkTo(parent.start)
-                }
-        ) {
-            AnimatedUpperCard(isVisible = isGreenCardAtop)
-            {
-                CreditCard(
-                    model = creditCardData()[0],
-                    backgroundColor = fetchCardColor(0),
-                )
-            }
-        }
-
-        Box(
-            modifier = Modifier
-                .constrainAs(bottomBalance) {
-                    start.linkTo(parent.start)
-                    top.linkTo(parent.bottom)
-                    end.linkTo(parent.end)
-                    width = Dimension.fillToConstraints
-                }
-                .fillMaxWidth()
-
-        ) {
-            val amount = creditCardData()[1].balance
-            Balance(formattedBalance(amount))
-        }
     }
 }
 
@@ -289,7 +255,7 @@ private fun Balance(amount: String) {
     }
 }
 
-@Preview(showBackground = true, name = "Two Credit card")
+@Preview(showBackground = true, name = "Two Credit card simpler")
 @Composable
 fun CreditCardPreview() {
     TwoCards()
@@ -298,10 +264,4 @@ fun CreditCardPreview() {
 fun formattedBalance(balance: Double): String {
     val dec = DecimalFormat(DECIMAL_FORMAT_PATTERN)
     return dec.format(balance)
-}
-
-@Composable
-fun fetchCardColor(number: Int): Color {
-    val id = if (number == 0) R.color.aero_blue else R.color.soap
-    return colorResource(id)
 }

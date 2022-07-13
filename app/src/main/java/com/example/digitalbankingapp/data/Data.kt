@@ -13,13 +13,15 @@ fun creditCardData(): List<CreditCardModel> = listOf(
         number = "4234567894567894",
         expiration = "0526",
         holderName = "John Smith",
-        balance = 2865265.43,
+        balance = 2865.43,
+        backgroundColorId = R.color.aero_blue,
     ),
     CreditCardModel(
         number = "5534567894564987",
         expiration = "1228",
         holderName = "John Smith",
         balance = 65356.15,
+        backgroundColorId = R.color.soap
     )
 )
 
