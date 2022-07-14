@@ -15,7 +15,7 @@ fun AnimatedLowerCard(
     AnimatedVisibility(
         visible = isVisible,
         enter = slideInHorizontally(
-            animationSpec = tween(delayMillis = 300),
+            animationSpec = tween(delayMillis = 350),
             initialOffsetX = { fullWidth -> -fullWidth }
         ),
         exit = slideOutHorizontally(
@@ -33,7 +33,7 @@ fun AnimatedUpperCard(
     AnimatedVisibility(
         visible = isVisible,
         enter = slideInHorizontally(
-            animationSpec = tween(delayMillis = 300),
+            animationSpec = tween(delayMillis = 350),
             initialOffsetX = { fullWidth -> fullWidth * 2 }
         ),
         exit = slideOutHorizontally(
@@ -42,4 +42,3 @@ fun AnimatedUpperCard(
         content = { content() }
     )
 }
-
