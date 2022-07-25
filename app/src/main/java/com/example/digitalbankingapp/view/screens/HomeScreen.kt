@@ -90,7 +90,6 @@ private fun HomeScreenCollapsingPart(tableSize: Dp) {
     ) {
         Row {
             AddNewCardBox()
-//            TwoCards()
             TwoCards()
         }
         CentralMenuRow()

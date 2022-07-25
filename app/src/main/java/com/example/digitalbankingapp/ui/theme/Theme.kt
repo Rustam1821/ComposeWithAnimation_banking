@@ -49,8 +49,6 @@ fun DigitalBankingAppTheme(
         LightColorPalette
     }
 
-//    val typography = getTypography(fontFamily)
-
     MaterialTheme(
         colors = colors,
         typography = Typography,
@@ -58,7 +56,3 @@ fun DigitalBankingAppTheme(
         content = content
     )
 }
-
-fun getTypography(fontFamily: FontFamily) = Typography(
-    defaultFontFamily = fontFamily
-)
