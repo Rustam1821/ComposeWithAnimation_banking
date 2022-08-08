@@ -76,13 +76,13 @@ fun Navigation(
             HomeScreen()
         }
         composable(NavigationItem.Transactions.route) {
-            TransactionsScreen(navController)
+            TransactionsScreen(navController = navController)
         }
         composable(NavigationItem.Question.route) {
-            QuestionScreen(navController)
+            QuestionScreen(navController = navController)
         }
         composable(NavigationItem.Profile.route) {
-            ProfileScreen(navController)
+            ProfileScreen(navController = navController)
         }
     }
 }

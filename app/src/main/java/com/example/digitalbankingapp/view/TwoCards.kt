@@ -35,6 +35,7 @@ import java.text.DecimalFormat
 
 @Composable
 fun CreditCard(
+    modifier: Modifier = Modifier,
     model: CreditCardModel,
 ) {
     CreditCardContainer(
@@ -56,7 +57,7 @@ fun CreditCard(
 
             model.logoCardIssuer?.let { issuer ->
                 Image(
-                    modifier = Modifier
+                    modifier = modifier
                         .constrainAs(icCardEntity) {
                             top.linkTo(parent.top, margin = 8.dp)
                             end.linkTo(parent.end, margin = cardPadding)
@@ -69,7 +70,7 @@ fun CreditCard(
             }
 
             CardNumberBlock(
-                modifier = Modifier
+                modifier = modifier
                     .constrainAs(refCardNumber) {
                         top.linkTo(icCardEntity.bottom, margin = 8.dp)
                         start.linkTo(parent.start)
@@ -80,7 +81,7 @@ fun CreditCard(
             )
 
             Text(
-                modifier = Modifier
+                modifier = modifier
                     .constrainAs(refName) {
                         start.linkTo(parent.start, margin = cardPadding)
                         bottom.linkTo(refHolderName.top)
@@ -92,7 +93,7 @@ fun CreditCard(
             )
 
             Text(
-                modifier = Modifier
+                modifier = modifier
                     .constrainAs(refHolderName) {
                         start.linkTo(parent.start, margin = cardPadding)
                         bottom.linkTo(parent.bottom, margin = 16.dp)
@@ -103,7 +104,7 @@ fun CreditCard(
             )
 
             Text(
-                modifier = Modifier
+                modifier = modifier
                     .constrainAs(refExpiration) {
                         end.linkTo(refExpirationDate.end)
                         bottom.linkTo(refHolderName.top)
@@ -115,7 +116,7 @@ fun CreditCard(
             )
 
             Text(
-                modifier = Modifier
+                modifier = modifier
                     .constrainAs(refExpirationDate) {
                         bottom.linkTo(refHolderName.bottom)
                         end.linkTo(parent.end, margin = cardPadding)
@@ -131,11 +132,12 @@ fun CreditCard(
 
 @Composable
 private fun CreditCardContainer(
+    modifier: Modifier = Modifier,
     backgroundColor: Color = Color.Gray,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .width(250.dp)
             .height(170.dp)//todo: or 165
             .padding(
@@ -152,7 +154,10 @@ private fun CreditCardContainer(
 }
 
 @Composable
-fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
+fun CardNumberBlock(
+    modifier: Modifier = Modifier,
+    cardNumber: CardNumberSplitter,
+) {
     Text(
         modifier = modifier.fillMaxWidth(),
         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
@@ -163,13 +168,15 @@ fun CardNumberBlock(cardNumber: CardNumberSplitter, modifier: Modifier) {
 }
 
 @Composable
-fun TwoCards() {
+fun TwoCards(
+    modifier: Modifier = Modifier,
+) {
     var isGreenCardAtop by rememberSaveable { mutableStateOf(true) }
     val interactionSource = remember { MutableInteractionSource() }
     val greenCreditCard = creditCardData()[0]
     val purpleCreditCard = creditCardData()[1]
     Column(
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 interactionSource = interactionSource,
                 indication = null,
@@ -178,36 +185,40 @@ fun TwoCards() {
             }
             .fillMaxWidth()) {
         Box(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = modifier.fillMaxWidth(),
         ) {
 
             // LowerCards
-            Box(modifier = Modifier.align(Alignment.BottomEnd)) {
+            Box(modifier = modifier.align(Alignment.BottomEnd)) {
                 AnimatedLowerCard(isVisible = !isGreenCardAtop)
                 {
                     CreditCard(
+                        modifier = modifier,
                         model = greenCreditCard,
                     )
                 }
                 AnimatedLowerCard(isVisible = isGreenCardAtop)
                 {
                     CreditCard(
+                        modifier = modifier,
                         model = purpleCreditCard,
                     )
                 }
             }
 
             //UpperCards
-            Box(modifier = Modifier.align(Alignment.BottomStart)) {
+            Box(modifier = modifier.align(Alignment.BottomStart)) {
                 AnimatedUpperCard(isVisible = isGreenCardAtop)
                 {
                     CreditCard(
+                        modifier = modifier,
                         model = greenCreditCard,
                     )
                 }
                 AnimatedUpperCard(isVisible = !isGreenCardAtop)
                 {
                     CreditCard(
+                        modifier = modifier,
                         model = purpleCreditCard,
                     )
                 }
@@ -217,15 +228,21 @@ fun TwoCards() {
         val topCard = if (isGreenCardAtop) {
             greenCreditCard
         } else purpleCreditCard
-        Balance(formattedBalance(topCard.balance))
+        Balance(
+            modifier = modifier,
+            amount = formattedBalance(topCard.balance)
+        )
 
     }
 }
 
 @Composable
-private fun Balance(amount: String) {
+private fun Balance(
+    modifier: Modifier = Modifier,
+    amount: String,
+) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(42.dp),
 
@@ -236,7 +253,7 @@ private fun Balance(amount: String) {
         backgroundColor = MaterialTheme.colors.onBackground,
     ) {
         Column(
-            modifier = Modifier.padding(start = 16.dp),
+            modifier = modifier.padding(start = 16.dp),
             verticalArrangement = Arrangement.Center
         ) {
             Text(

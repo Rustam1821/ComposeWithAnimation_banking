@@ -47,10 +47,10 @@ fun BankDrawer(
         )
 
         drawerItems.forEach { screen ->
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = modifier.height(16.dp))
             Row {
                 Icon(screen.icon_filled, null)
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = modifier.width(16.dp))
                 Text(
                     text = screen.title,
                     style = MaterialTheme.typography.button

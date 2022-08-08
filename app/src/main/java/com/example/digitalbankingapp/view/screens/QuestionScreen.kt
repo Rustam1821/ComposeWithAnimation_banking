@@ -25,12 +25,20 @@ import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.ui.theme.ArcTransferColor
 
 @Composable
-fun QuestionScreen(navController: NavController) {
+fun QuestionScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+) {
     Scaffold(
-        topBar = { QuestionsAppBar(navController) }
+        topBar = {
+            QuestionsAppBar(
+                modifier = modifier,
+                navController = navController,
+            )
+        }
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .background(ArcTransferColor),
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -38,16 +46,16 @@ fun QuestionScreen(navController: NavController) {
 
         ) {
             Icon(
-                modifier = Modifier.size(80.dp),
+                modifier = modifier.size(80.dp),
                 imageVector = Icons.Outlined.LiveHelp,
                 tint = Color.Black,
                 contentDescription = null,
             )
             Text(
+                modifier = modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.faq_not_implemented),
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
                 fontSize = 16.sp
             )

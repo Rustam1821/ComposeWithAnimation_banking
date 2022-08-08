@@ -42,13 +42,21 @@ import kotlinx.coroutines.launch
 import java.lang.Float.min
 
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+) {
     val scaffoldState =
         rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val scope = rememberCoroutineScope()
     val closeDrawer: () -> Unit = { scope.launch { scaffoldState.drawerState.close() } }
     Scaffold(
-        topBar = { HomeAppBar(scope, scaffoldState) },
+        topBar = {
+            HomeAppBar(
+                modifier = modifier,
+                scope = scope,
+                scaffoldState = scaffoldState,
+            )
+        },
         scaffoldState = scaffoldState,
         drawerContent = {
             BankDrawer(
@@ -63,7 +71,9 @@ fun HomeScreen() {
 }
 
 @Composable
-private fun HomeScreenContent() {
+private fun HomeScreenContent(
+    modifier: Modifier = Modifier,
+) {
 
     val scrollState = rememberLazyListState()
     val scrollOffset: Float = min(
@@ -73,24 +83,27 @@ private fun HomeScreenContent() {
     val tableSize by animateDpAsState(targetValue = max(0.dp, 322.dp * scrollOffset))
 
     Column(
-        modifier = Modifier.background(MaterialTheme.colors.background)
+        modifier = modifier.background(MaterialTheme.colors.background)
     ) {
-        HomeScreenCollapsingPart(tableSize)
-        HomeScreenScrollablePart(scrollState)
+        HomeScreenCollapsingPart(modifier = modifier, tableSize = tableSize)
+        HomeScreenScrollablePart(modifier = modifier, scrollState = scrollState)
     }
 }
 
 @Composable
-private fun HomeScreenCollapsingPart(tableSize: Dp) {
+private fun HomeScreenCollapsingPart(
+    modifier: Modifier = Modifier,
+    tableSize: Dp
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(horizontal = 16.dp)
             .height(tableSize)
             .fillMaxWidth(),
     ) {
         Row {
-            AddNewCardBox()
-            TwoCards()
+            AddNewCardBox(modifier = modifier)
+            TwoCards(modifier = modifier)
         }
         CentralMenuRow()
     }
@@ -99,26 +112,29 @@ private fun HomeScreenCollapsingPart(tableSize: Dp) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun HomeScreenScrollablePart(
+    modifier: Modifier = Modifier,
     scrollState: LazyListState,
 ) {
     val transactions: List<TransactionModel> = transactionsData()
     LazyColumn(
-        modifier = Modifier
+        modifier = modifier
             .padding(vertical = 4.dp)
             .background(MaterialTheme.colors.background),
         state = scrollState
     ) {
         stickyHeader {
-            TransactionsHeader()
+            TransactionsHeader(modifier = modifier)
         }
         items(items = transactions) { transaction ->
-            TransactionItem(transaction)
+            TransactionItem(modifier = modifier, transaction = transaction)
         }
     }
 }
 
 @Composable
-private fun CentralMenuRow() {
+private fun CentralMenuRow(
+    modifier: Modifier = Modifier,
+) {
     val menuItems = listOf(
         MenuItem.Transfer,
         MenuItem.Payment,
@@ -126,7 +142,7 @@ private fun CentralMenuRow() {
         MenuItem.More
     )
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
@@ -140,15 +156,17 @@ private fun CentralMenuRow() {
 }
 
 @Composable
-private fun TransactionsHeader() {
+private fun TransactionsHeader(
+    modifier: Modifier = Modifier,
+) {
     Spacer(
-        modifier = Modifier
+        modifier = modifier
             .height(8.dp)
             .fillMaxWidth()
             .background(MaterialTheme.colors.background)
     )
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp)
             .background(MaterialTheme.colors.background),
@@ -176,16 +194,19 @@ private fun TransactionsHeader() {
 }
 
 @Composable
-fun TransactionItem(transaction: TransactionModel) {
+fun TransactionItem(
+    modifier: Modifier = Modifier,
+    transaction: TransactionModel,
+) {
     Card(
         backgroundColor = Gray98,
-        modifier = Modifier
+        modifier = modifier
             .padding(vertical = 4.dp, horizontal = 16.dp)
             .clip(MaterialTheme.shapes.large),
         elevation = 0.dp
     ) {
         Row(
-            modifier = Modifier
+            modifier = modifier
                 .padding(12.dp)
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -193,7 +214,7 @@ fun TransactionItem(transaction: TransactionModel) {
 
             ) {
             Icon(
-                modifier = Modifier
+                modifier = modifier
                     .size(40.dp)
                     .drawBehind {
                         drawCircle(
@@ -206,7 +227,7 @@ fun TransactionItem(transaction: TransactionModel) {
                 contentDescription = null
             )
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .weight(1f)
                     .padding(start = 8.dp)
             ) {

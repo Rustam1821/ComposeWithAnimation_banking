@@ -25,31 +25,37 @@ import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.ui.theme.ArcTransferColor
 
 @Composable
-fun ProfileScreen(navController: NavController) {
+fun ProfileScreen(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+) {
     Scaffold(
-        topBar = { ProfileAppBar(navController) }
+        topBar = { ProfileAppBar(
+            modifier = modifier,
+            navController = navController,
+        ) }
     ) {
         Column(
-            modifier = Modifier
+            modifier = modifier
                 .fillMaxSize()
                 .background(ArcTransferColor),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
 
         ) {
             Icon(
-                modifier = Modifier.size(80.dp),
+                modifier = modifier.size(80.dp),
                 imageVector = Icons.Outlined.Person,
                 tint = Color.Black,
                 contentDescription = null,
             )
             Text(
+                modifier = modifier.align(Alignment.CenterHorizontally),
                 text = stringResource(id = R.string.profile_not_implemented),
                 fontWeight = FontWeight.Bold,
                 color = Color.Black,
-                modifier = Modifier.align(Alignment.CenterHorizontally),
                 textAlign = TextAlign.Center,
-                fontSize = 16.sp
+                fontSize = 16.sp,
             )
         }
     }

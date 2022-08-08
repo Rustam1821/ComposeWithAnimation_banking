@@ -48,7 +48,7 @@ fun transactionsData(): List<TransactionModel> {
         ),
     )
     val result = mutableListOf<TransactionModel>()
-    for(i in 1..10){
+    for (i in 1..10) {
         result.addAll(threeElements)
     }
     return result

@@ -16,7 +16,11 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 @Composable
-fun HomeAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
+fun HomeAppBar(
+    modifier: Modifier = Modifier,
+    scope: CoroutineScope,
+    scaffoldState: ScaffoldState
+) {
     TopAppBar(
         title = {
             Text(text = stringResource(id = R.string.home_top_bar))
@@ -33,18 +37,24 @@ fun HomeAppBar(scope: CoroutineScope, scaffoldState: ScaffoldState) {
         backgroundColor = MaterialTheme.colors.background,
         elevation = 10.dp,
         actions = {
-            UserImage(User.DEFAULT_USER)
+            UserImage(
+                modifier = modifier,
+                user = User.DEFAULT_USER
+            )
         }
     )
 }
 
 @Composable
-fun TransactionsAppBar(navController: NavController) {
+fun TransactionsAppBar(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+) {
     TopAppBar(
         title = {
             Text(
                 text = stringResource(id = R.string.transactions_top_bar),
-                modifier = Modifier
+                modifier = modifier
                     .padding(end = 32.dp)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -66,12 +76,15 @@ fun TransactionsAppBar(navController: NavController) {
 }
 
 @Composable
-fun ProfileAppBar(navController: NavController) {
+fun ProfileAppBar(
+    modifier: Modifier = Modifier,
+    navController: NavController
+) {
     TopAppBar(
         title = {
             Text(
                 text = stringResource(id = R.string.profile_top_bar),
-                modifier = Modifier
+                modifier = modifier
                     .padding(end = 32.dp)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center
@@ -93,12 +106,15 @@ fun ProfileAppBar(navController: NavController) {
 }
 
 @Composable
-fun QuestionsAppBar(navController: NavController) {
+fun QuestionsAppBar(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+) {
     TopAppBar(
         title = {
             Text(
                 text = stringResource(id = R.string.faq_top_bar),
-                modifier = Modifier
+                modifier = modifier
                     .padding(end = 32.dp)
                     .fillMaxWidth(),
                 textAlign = TextAlign.Center

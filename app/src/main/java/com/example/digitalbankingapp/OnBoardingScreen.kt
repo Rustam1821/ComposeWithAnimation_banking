@@ -18,17 +18,18 @@ import com.example.digitalbankingapp.ui.theme.Typography
 
 @Composable
 fun OnBoardingScreen(
-    onClick: () -> Unit
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
 
     Surface {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .background(color = MaterialTheme.colors.onBackground)
             )
@@ -36,12 +37,12 @@ fun OnBoardingScreen(
                 Image(
                     painter = painterResource(id = R.drawable.starting_screen),
                     contentDescription = null,
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize()
                         .padding(bottom = 160.dp)
                 )
                 Column(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp),
                     verticalArrangement = Arrangement.Bottom,
@@ -53,14 +54,14 @@ fun OnBoardingScreen(
                         style = Typography.h4,
                     )
                     Text(
-                        modifier = Modifier
+                        modifier = modifier
                             .padding(vertical = 8.dp),
                         text = stringResource(id = R.string.on_boarding_lure),
                         color = MaterialTheme.colors.onSecondary,
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
                     )
                     Button(
-                        modifier = Modifier
+                        modifier = modifier
                             .padding(vertical = 8.dp)
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(backgroundColor = ArcTransferColor),

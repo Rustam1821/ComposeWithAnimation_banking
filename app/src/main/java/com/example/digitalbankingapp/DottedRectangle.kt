@@ -21,14 +21,16 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun AddNewCardBox() {
+fun AddNewCardBox(
+    modifier: Modifier = Modifier,
+) {
     val stroke = Stroke(
         width = 2f,
         pathEffect = PathEffect.dashPathEffect(floatArrayOf(10f, 10f))
     )
     val color = MaterialTheme.colors.onBackground
     Box(
-        modifier = Modifier
+        modifier = modifier
             .size(60.dp, 228.dp)
             .padding(
                 16.dp
@@ -38,7 +40,7 @@ fun AddNewCardBox() {
     )
     {
         Canvas(
-            modifier = Modifier.fillMaxSize()
+            modifier = modifier.fillMaxSize()
         ) {
             drawRoundRect(
                 color = color,

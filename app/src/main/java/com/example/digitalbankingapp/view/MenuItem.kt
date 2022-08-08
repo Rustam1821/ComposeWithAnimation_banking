@@ -20,6 +20,7 @@ import com.example.digitalbankingapp.R
 
 @Composable
 fun MenuItemButton(
+    modifier: Modifier = Modifier,
     text: String = "text",
     iconId: Int = R.drawable.ic_menu_transfer,
 ) {
@@ -30,7 +31,7 @@ fun MenuItemButton(
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-        Box(modifier = Modifier.clip(MaterialTheme.shapes.large)) {
+        Box(modifier = modifier.clip(MaterialTheme.shapes.large)) {
             IconButton(
                 onClick = {},
                 modifier = Modifier
@@ -59,7 +60,6 @@ fun MenuItemButton(
 }
 
 sealed class MenuItem(
-    var route: String = "",
     var label: Int,
     var iconId: Int,
 ) {

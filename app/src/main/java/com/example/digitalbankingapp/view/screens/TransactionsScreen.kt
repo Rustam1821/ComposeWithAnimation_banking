@@ -47,17 +47,25 @@ import java.lang.Float.min
 
 @Composable
 fun TransactionsScreen(
-    navController: NavController
+    modifier: Modifier = Modifier,
+    navController: NavController,
 ) {
     Scaffold(
-        topBar = { TransactionsAppBar(navController) }
+        topBar = {
+            TransactionsAppBar(
+                navController = navController,
+                modifier = modifier
+            )
+        }
     ) {
-        TransactionScreenContent()
+        TransactionScreenContent(modifier = modifier)
     }
 }
 
 @Composable
-private fun TransactionScreenContent() {
+private fun TransactionScreenContent(
+    modifier: Modifier = Modifier,
+) {
     val scrollState = rememberLazyListState()
     val scrollOffset: Float = min(
         1f,
@@ -65,27 +73,33 @@ private fun TransactionScreenContent() {
     )
     val tableSize by animateDpAsState(targetValue = max(0.dp, 380.dp * scrollOffset))
 
-    TransactionsScreenCollapsingPart(tableSize)
+    TransactionsScreenCollapsingPart(modifier = modifier, tableSize = tableSize)
     Column(
     ) {
-        Spacer(modifier = Modifier.height(tableSize / 1.5f))
-        TransactionsScreenScrollablePart(scrollState)
+        Spacer(modifier = modifier.height(tableSize / 1.5f))
+        TransactionsScreenScrollablePart(modifier = modifier, scrollState = scrollState)
     }
 }
 
 @Composable
-private fun TransactionsScreenCollapsingPart(tableSize: Dp) {
+private fun TransactionsScreenCollapsingPart(
+    modifier: Modifier = Modifier,
+    tableSize: Dp,
+) {
     val data = balanceData()
     Box(
-        modifier = Modifier
+        modifier = modifier
             .height(tableSize)
             .fillMaxWidth()
     ) {
         SharesArc(balanceData = data)
         Column {
-            DisplayBalance(formattedBalance(data.sumOf { it.balance }))
-            Spacer(modifier = Modifier.height(48.dp))
-            DisplayLegend(data)
+            DisplayBalance(
+                modifier = modifier,
+                amount = formattedBalance(data.sumOf { it.balance })
+            )
+            Spacer(modifier = modifier.height(48.dp))
+            DisplayLegend(modifier = modifier, data = data)
         }
     }
 }
@@ -93,14 +107,15 @@ private fun TransactionsScreenCollapsingPart(tableSize: Dp) {
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 private fun TransactionsScreenScrollablePart(
+    modifier: Modifier = Modifier,
     scrollState: LazyListState,
 ) {
     val transactions: List<TransactionModel> = transactionsData()
     Box(
-        modifier = Modifier.padding(top = 0.dp)
+        modifier = modifier.padding(top = 0.dp)
     ) {
         LazyColumn(
-            modifier = Modifier
+            modifier = modifier
                 .padding(vertical = 4.dp)
                 .background(MaterialTheme.colors.background),
             state = scrollState
@@ -109,7 +124,7 @@ private fun TransactionsScreenScrollablePart(
                 PeriodCategoryRow(onPeriodSelected = {})
             }
             items(items = transactions) { transaction ->
-                TransactionItem(transaction)
+                TransactionItem(modifier = modifier, transaction = transaction)
             }
         }
     }
@@ -158,9 +173,12 @@ fun SharesArc(
 }
 
 @Composable
-fun DisplayBalance(amount: String) {
+fun DisplayBalance(
+    modifier: Modifier = Modifier,
+    amount: String
+) {
     Column(
-        modifier = Modifier
+        modifier = modifier
             .padding(top = 128.dp)
             .fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -183,15 +201,19 @@ fun DisplayBalance(amount: String) {
 }
 
 @Composable
-fun DisplayLegend(data: List<BalanceModel>) {
+fun DisplayLegend(
+    modifier: Modifier = Modifier,
+    data: List<BalanceModel>,
+) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .padding(horizontal = 16.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         for (i in data.indices) {
             DisplayLegendItem(
+                modifier = modifier,
                 color = data[i].color,
                 legend = stringResource(id = data[i].description)
             )
@@ -200,17 +222,21 @@ fun DisplayLegend(data: List<BalanceModel>) {
 }
 
 @Composable
-fun DisplayLegendItem(color: Color, legend: String) {
+fun DisplayLegendItem(
+    modifier: Modifier = Modifier,
+    color: Color,
+    legend: String
+) {
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
     ) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .size(10.dp)
                 .background(color = color, shape = CircleShape)
         )
-        Spacer(modifier = Modifier.width(4.dp))
+        Spacer(modifier = modifier.width(4.dp))
         Text(text = legend)
     }
 
@@ -218,8 +244,8 @@ fun DisplayLegendItem(color: Color, legend: String) {
 
 @Composable
 private fun PeriodCategoryRow(
+    modifier: Modifier = Modifier,
     onPeriodSelected: (PeriodCategory) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     val periodCategories = PeriodCategory.values()
     var selectedTab = remember { mutableStateOf(0) }
@@ -237,7 +263,7 @@ private fun PeriodCategoryRow(
             text = stringResource(id = R.string.transactions_details),
         )
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = modifier.height(8.dp))
 
         ScrollableTabRow(
             selectedTabIndex = selectedTab.value,
@@ -256,22 +282,22 @@ private fun PeriodCategoryRow(
                     }
                 ) {
                     ChoicePeriodChip(
+                        modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                         text = stringResource(id = periodItem.value),
                         isSelected = index == selectedTab.value,
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp)
                     )
                 }
             }
         }
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = modifier.height(8.dp))
     }
 }
 
 @Composable
 private fun ChoicePeriodChip(
+    modifier: Modifier = Modifier,
     text: String,
     isSelected: Boolean,
-    modifier: Modifier = Modifier
 ) {
     Surface(
         color = if (isSelected) MaterialTheme.colors.onBackground else MaterialTheme.colors.background,

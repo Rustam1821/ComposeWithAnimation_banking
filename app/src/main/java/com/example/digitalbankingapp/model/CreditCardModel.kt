@@ -1,11 +1,8 @@
 package com.example.digitalbankingapp.model
 
-import androidx.compose.ui.graphics.Color
 import com.example.digitalbankingapp.R
 import com.example.digitalbankingapp.utils.CardIssuerFinder
-import com.example.digitalbankingapp.utils.DECIMAL_FORMAT_PATTERN
 import com.example.digitalbankingapp.utils.EMPTY_STRING
-import java.text.DecimalFormat
 
 data class CreditCardModel(
     var number: String = EMPTY_STRING,

@@ -18,12 +18,15 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun UserImage(user: User) {
+fun UserImage(
+    modifier: Modifier = Modifier,
+    user: User,
+) {
     Image(
         painter = painterResource(id = user.userImageId),
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier
+        modifier = modifier
             .clickable(
                 indication = rememberRipple(
                     bounded = true,
