@@ -53,3 +53,4 @@ captures/
 
 # MacOs
 *.DS_STORE
+app/**/*.DS_Store
