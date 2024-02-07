@@ -1,6 +1,6 @@
 package com.example.digitalbankingapp.model
 
-enum class CardIssuer{
+enum class CardIssuer {
     VISA,
     MASTERCARD,
     OTHER

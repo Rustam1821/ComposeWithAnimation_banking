@@ -1,9 +1,47 @@
 <resources>
     <string name="app_name">Digital Banking App</string>
 
-    <!--    OnBoarding-->
+    <!--    OnBoarding  -->
     <string name="on_boarding_moto">Easy banking, easy life</string>
     <string name="on_boarding_lure">Friendly digital banking to make you feel better to manage your financial matter!</string>
     <string name="on_boarding_btn_text">Get Started</string>
+
+    <!--    Transactions  -->
+    <string name="today">Today</string>
+    <string name="this_week">This Week</string>
+    <string name="this_month">This Month</string>
+    <string name="three_months">3 Months</string>
+    <string name="six_months">6 Months</string>
+    <string name="this_year">This Year</string>
+    <string name="transactions_details">Details</string>
+    <string name="transactions_balance">Balance</string>
+    <string name="transactions_amount">USD %1$S</string>
+
+    <string name="transactions_arc_transfer">Transfer</string>
+    <string name="transactions_arc_payment">ePayment</string>
+    <string name="transactions_arc_commerce">eCommerce</string>
+
+    <string name="transactions_top_bar">Transactions History</string>
+
+    <!--    HomeScreen  -->
+    <string name="home_screen_transactions">Transactions</string>
+    <string name="home_screen_view_all">View All</string>
+    <string name="home_top_bar">My digital bank</string>
+
+    <string name="home_menu_item_transfer">Transfer</string>
+    <string name="home_menu_item_payment">Payment</string>
+    <string name="home_menu_item_shopping">Shopping</string>
+    <string name="home_menu_item_more">More</string>
+
+    <!--    CreditCard  -->
+    <string name="credit_card_balance">Balance</string>
+
+    <!--    Profile  -->
+    <string name="profile_top_bar">Profile details</string>
+    <string name="profile_not_implemented">Profile View Not Yet Implemented</string>
+
+    <!--    Questions  -->
+    <string name="faq_top_bar">FAQ</string>
+    <string name="faq_not_implemented">FAQ View Not Yet Implemented</string>
 
 </resources>

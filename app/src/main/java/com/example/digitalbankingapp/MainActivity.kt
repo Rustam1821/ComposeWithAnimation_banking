@@ -3,6 +3,10 @@ package com.example.digitalbankingapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.FastOutLinearInEasing
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -15,7 +19,6 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.digitalbankingapp.ui.theme.DigitalBankingAppTheme
 
@@ -32,13 +35,22 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DigitalBanking() {
-    var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
-    if (shouldShowOnboarding) {
+    var shouldShowOnBoarding by rememberSaveable { mutableStateOf(true) }
+    MainScreen()
+    AnimatedVisibility(
+        visible = shouldShowOnBoarding,
+        exit = fadeOut(
+            animationSpec = tween(
+                delayMillis = 200,
+                durationMillis = 400,
+                easing = FastOutLinearInEasing
+            )
+        )
+
+    ) {
         OnBoardingScreen {
-            shouldShowOnboarding = false
+            shouldShowOnBoarding = false
         }
-    } else {
-        MainScreen()
     }
 }
 

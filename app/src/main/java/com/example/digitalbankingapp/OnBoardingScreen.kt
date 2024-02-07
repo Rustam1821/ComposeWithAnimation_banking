@@ -13,36 +13,36 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.digitalbankingapp.ui.theme.ArcTransferColor
-import com.example.digitalbankingapp.ui.theme.Gray90
+import com.example.digitalbankingapp.ui.theme.Typography
 
 @Composable
 fun OnBoardingScreen(
-    onClick: () -> Unit
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
 
     Surface {
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = modifier.fillMaxSize(),
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Box(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .background(color = MaterialTheme.colors.onBackground)
             )
             {
                 Image(
                     painter = painterResource(id = R.drawable.starting_screen),
-                    contentDescription = "",
-                    modifier = Modifier
+                    contentDescription = null,
+                    modifier = modifier
                         .fillMaxSize()
                         .padding(bottom = 160.dp)
                 )
                 Column(
-                    modifier = Modifier
+                    modifier = modifier
                         .fillMaxSize()
                         .padding(horizontal = 16.dp),
                     verticalArrangement = Arrangement.Bottom,
@@ -51,18 +51,17 @@ fun OnBoardingScreen(
                     Text(
                         text = stringResource(id = R.string.on_boarding_moto),
                         color = MaterialTheme.colors.background,
-                        fontSize = 32.sp,
-                        fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
+                        style = Typography.h4,
                     )
                     Text(
-                        modifier = Modifier
+                        modifier = modifier
                             .padding(vertical = 8.dp),
                         text = stringResource(id = R.string.on_boarding_lure),
-                        color = Gray90,
+                        color = MaterialTheme.colors.onSecondary,
                         fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
                     )
                     Button(
-                        modifier = Modifier
+                        modifier = modifier
                             .padding(vertical = 8.dp)
                             .fillMaxWidth(),
                         colors = ButtonDefaults.buttonColors(backgroundColor = ArcTransferColor),
@@ -70,8 +69,7 @@ fun OnBoardingScreen(
                     ) {
                         Text(
                             text = stringResource(id = R.string.on_boarding_btn_text),
-                            fontFamily = FontFamily(Font(R.font.plus_jakarta_sans_bold)),
-                            color = MaterialTheme.colors.onBackground,
+                            style = MaterialTheme.typography.button,
                         )
                     }
                 }
@@ -83,5 +81,5 @@ fun OnBoardingScreen(
 @Preview(showBackground = true)
 @Composable
 fun OnboardingPreview() {
-    OnBoardingScreen({})
+    OnBoardingScreen{}
 }

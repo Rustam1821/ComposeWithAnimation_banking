@@ -13,13 +13,15 @@ fun creditCardData(): List<CreditCardModel> = listOf(
         number = "4234567894567894",
         expiration = "0526",
         holderName = "John Smith",
-        balance = 2865265.43,
+        balance = 2865.43,
+        backgroundColorId = R.color.aero_blue,
     ),
     CreditCardModel(
         number = "5534567894564987",
         expiration = "1228",
         holderName = "John Smith",
         balance = 65356.15,
+        backgroundColorId = R.color.soap
     )
 )
 
@@ -46,7 +48,7 @@ fun transactionsData(): List<TransactionModel> {
         ),
     )
     val result = mutableListOf<TransactionModel>()
-    for(i in 1..10){
+    for (i in 1..10) {
         result.addAll(threeElements)
     }
     return result
@@ -57,17 +59,17 @@ fun balanceData(): List<BalanceModel> {
         BalanceModel(
             balance = 20112.03,
             color = ArcTransferColor,
-            description = "Transfer"
+            description = R.string.transactions_arc_transfer,
         ),
         BalanceModel(
             balance = 24351.07,
             color = ArcPaymentColor,
-            description = "ePayment"
+            description = R.string.transactions_arc_payment,
         ),
         BalanceModel(
             balance = 20893.05,
             color = ArcCommerceColor,
-            description = "eCommerce"
+            description = R.string.transactions_arc_commerce,
         ),
     )
 }

@@ -2,7 +2,6 @@ package com.example.digitalbankingapp.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
@@ -11,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -22,6 +20,7 @@ import com.example.digitalbankingapp.R
 
 @Composable
 fun MenuItemButton(
+    modifier: Modifier = Modifier,
     text: String = "text",
     iconId: Int = R.drawable.ic_menu_transfer,
 ) {
@@ -32,19 +31,19 @@ fun MenuItemButton(
         horizontalAlignment = Alignment.CenterHorizontally,
 
         ) {
-        Box(modifier = Modifier.clip(RoundedCornerShape(16.dp))) {
+        Box(modifier = modifier.clip(MaterialTheme.shapes.large)) {
             IconButton(
                 onClick = {},
                 modifier = Modifier
                     .size(64.dp)
-                    .clip(RoundedCornerShape(5.dp)),
+                    .clip(MaterialTheme.shapes.small),
             ) {
                 Icon(
                     modifier = Modifier
                         .background(bgColor)
                         .padding(16.dp),
                     painter = painterResource(id = iconId),
-                    contentDescription = "",
+                    contentDescription = null,
                     tint = strokeColor,
                 )
             }
@@ -53,7 +52,7 @@ fun MenuItemButton(
         Text(
             fontFamily = FontFamily(Font(R.font.plus_jakarta_sans)),
             fontSize = 14.sp,
-            color = Color.Gray,
+            color = MaterialTheme.colors.secondary,
             text = text
         )
     }
@@ -61,14 +60,20 @@ fun MenuItemButton(
 }
 
 sealed class MenuItem(
-    var route: String = "",
-    var label: String,
+    var label: Int,
     var iconId: Int,
 ) {
-    object Transfer : MenuItem(label = "Transfer", iconId = R.drawable.ic_menu_transfer)
-    object Payment : MenuItem(label = "Payment", iconId = R.drawable.ic_menu_payment)
-    object Shopping : MenuItem(label = "Shopping", iconId = R.drawable.ic_menu_shopping)
-    object More : MenuItem(label = "More", iconId = R.drawable.ic_menu_more)
+    object Transfer :
+        MenuItem(label = R.string.home_menu_item_transfer, iconId = R.drawable.ic_menu_transfer)
+
+    object Payment :
+        MenuItem(label = R.string.home_menu_item_payment, iconId = R.drawable.ic_menu_payment)
+
+    object Shopping :
+        MenuItem(label = R.string.home_menu_item_shopping, iconId = R.drawable.ic_menu_shopping)
+
+    object More :
+        MenuItem(label = R.string.home_menu_item_more, iconId = R.drawable.ic_menu_more)
 }
 
 
